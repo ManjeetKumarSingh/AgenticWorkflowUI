@@ -1,0 +1,7 @@
+pip install streamlit
+pip install langgraph
+pip install langchain
+pip install langchain-openai
+pip install graphviz
+pip install redis
+pip install qdrant-client
