@@ -1,0 +1,14 @@
+{
+  "id": "c6db11a3-7012-491f-91d3-b52a13aef340",
+  "workflow_id": "8bceb15a-df68-4a55-b756-175dea861253",
+  "node_name": "action",
+  "status": "completed",
+  "timestamp": "2026-06-03T01:06:04.781657",
+  "data": {
+    "action_result": "Deployment Success"
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T01:06:04.781786"
+}

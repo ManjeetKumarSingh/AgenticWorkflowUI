@@ -1,0 +1,27 @@
+{
+  "id": "d6e18e07-1cfa-4030-b23e-a41171d12b7c",
+  "workflow_id": "wf_1780430976.258178",
+  "node_name": "planner",
+  "status": "completed",
+  "timestamp": "2026-06-03T01:39:36.262884",
+  "data": {
+    "workflow_id": "wf_1780430976.258178",
+    "request": "Deploy this in the productions environment",
+    "created_at": "2026-06-03T01:39:36.258189",
+    "current_step": "planner",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T01:39:36.263276"
+}

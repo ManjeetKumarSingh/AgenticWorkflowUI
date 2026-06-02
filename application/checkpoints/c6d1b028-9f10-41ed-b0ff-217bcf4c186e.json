@@ -1,0 +1,13 @@
+{
+  "id": "c6d1b028-9f10-41ed-b0ff-217bcf4c186e",
+  "workflow_id": "03ea9129-7975-4352-91ae-3df01fc86b3c",
+  "node_name": "risk",
+  "status": "failed",
+  "timestamp": "2026-06-03T01:11:41.074061",
+  "data": {},
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "error": "'request'",
+  "updated_at": "2026-06-03T01:11:41.074399"
+}

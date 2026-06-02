@@ -1,0 +1,67 @@
+{
+  "id": "fb9156a6-c48e-4bed-8f37-83a4463d4ca7",
+  "workflow_id": "wf_1780429508.856707",
+  "node_name": "awaiting_approval",
+  "status": "completed",
+  "timestamp": "2026-06-03T01:15:08.864323",
+  "data": {
+    "workflow_id": "wf_1780429508.856707",
+    "request": "Deploy the app in productions",
+    "created_at": "2026-06-03T01:15:08.856722",
+    "current_step": "approval_gate",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [
+      "Redis",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "risks": [
+      "High Traffic",
+      "Deployment Risk"
+    ],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": true,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T01:15:08.859212",
+        "status": "completed",
+        "checkpoint_id": "47de19a4-8bf1-47a1-bcc7-e397007fe764"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T01:15:08.860748",
+        "status": "completed",
+        "checkpoint_id": "86ac17b2-df67-47f4-a98f-fc748082f9bd"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T01:15:08.861719",
+        "status": "completed",
+        "checkpoint_id": "3c144c5f-3bd4-4c48-b467-ee698eaa80de"
+      },
+      {
+        "step": "governance",
+        "timestamp": "2026-06-03T01:15:08.862657",
+        "status": "awaiting_approval",
+        "checkpoint_id": "f647e755-16f8-40d4-b16a-87b18e7cfb09"
+      },
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-03T01:15:08.863845",
+        "status": "completed",
+        "checkpoint_id": "eb901935-0030-4ed1-ad4c-f9bde30e7d5e"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": true,
+    "_workflow_paused": true,
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T01:15:08.864697"
+}

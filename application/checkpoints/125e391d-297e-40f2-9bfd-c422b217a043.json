@@ -1,0 +1,14 @@
+{
+  "id": "125e391d-297e-40f2-9bfd-c422b217a043",
+  "workflow_id": "4a8ebbe4-018d-4c28-892a-6d159164afba",
+  "node_name": "evaluator",
+  "status": "completed",
+  "timestamp": "2026-06-03T01:02:40.631755",
+  "data": {
+    "evaluation_result": "Workflow Completed"
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T01:02:40.631963"
+}

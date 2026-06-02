@@ -1,0 +1,13 @@
+{
+  "id": "b0a50902-88fa-435e-9878-641bf727c158",
+  "workflow_id": "71fd8d0e-dbc2-421b-853f-2939989c4d70",
+  "node_name": "planner",
+  "status": "failed",
+  "timestamp": "2026-06-03T00:58:32.373831",
+  "data": {},
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "error": "'request'",
+  "updated_at": "2026-06-03T00:58:32.374203"
+}

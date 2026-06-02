@@ -1,0 +1,18 @@
+{
+  "id": "a0a05693-3580-4298-afad-6893e6744bee",
+  "workflow_id": "45bf00e6-e730-437a-9615-c5eb87742245",
+  "node_name": "dependency",
+  "status": "completed",
+  "timestamp": "2026-06-03T01:13:18.735866",
+  "data": {
+    "dependencies": [
+      "Redis",
+      "PostgreSQL",
+      "Kafka"
+    ]
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T01:13:18.736077"
+}

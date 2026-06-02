@@ -1,0 +1,67 @@
+{
+  "id": "5f2947eb-3dde-4b10-bc36-38ab6064fa00",
+  "workflow_id": "wf_1780430153.40909",
+  "node_name": "awaiting_approval",
+  "status": "completed",
+  "timestamp": "2026-06-03T01:25:53.415758",
+  "data": {
+    "workflow_id": "wf_1780430153.40909",
+    "request": "Deploy this in the productions environment",
+    "created_at": "2026-06-03T01:25:53.409108",
+    "current_step": "approval_gate",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [
+      "Redis",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "risks": [
+      "High Traffic",
+      "Deployment Risk"
+    ],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": true,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T01:25:53.413232",
+        "status": "completed",
+        "checkpoint_id": "1eec3ace-9103-4510-8c3d-0fdc58259c98"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T01:25:53.413941",
+        "status": "completed",
+        "checkpoint_id": "dacd4cc3-8b7b-49c0-a69c-a1cd5af31498"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T01:25:53.414485",
+        "status": "completed",
+        "checkpoint_id": "af2b18d1-c9a3-47de-a2b1-83f84e98ff05"
+      },
+      {
+        "step": "governance",
+        "timestamp": "2026-06-03T01:25:53.414997",
+        "status": "awaiting_approval",
+        "checkpoint_id": "10e437ac-d61b-4983-b5f1-7762f3d47f2f"
+      },
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-03T01:25:53.415485",
+        "status": "completed",
+        "checkpoint_id": "bcd9c1d3-76a6-46a9-b5ce-d96c937fb2da"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": true,
+    "_workflow_paused": true,
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T01:25:53.415955"
+}

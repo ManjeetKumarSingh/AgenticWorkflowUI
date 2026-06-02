@@ -1,0 +1,16 @@
+{
+  "id": "8d899c44-2c7f-4290-9965-7417e2a509d0",
+  "workflow_id": "29b334f9-87e7-4949-bbc3-959aeee1969d",
+  "node_name": "governance",
+  "status": "paused",
+  "timestamp": "2026-06-03T01:06:04.780971",
+  "data": {
+    "human_approval_required": true,
+    "approval_status": "pending",
+    "current_step": "governance"
+  },
+  "human_approval_required": true,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T01:06:04.781116"
+}

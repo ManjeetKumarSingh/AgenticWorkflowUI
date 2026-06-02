@@ -1,0 +1,15 @@
+{
+  "id": "0f47b5e7-6bf8-482a-967b-4d1814991343",
+  "workflow_id": "6dfa3701-f7f7-436e-ac37-9cad52963c6f",
+  "node_name": "approval_gate",
+  "status": "completed",
+  "timestamp": "2026-06-03T01:09:21.505713",
+  "data": {
+    "_pause_for_approval": false,
+    "_workflow_paused": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T01:09:21.505932"
+}
