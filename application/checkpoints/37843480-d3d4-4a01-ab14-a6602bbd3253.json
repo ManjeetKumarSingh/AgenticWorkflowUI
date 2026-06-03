@@ -1,0 +1,62 @@
+{
+  "id": "37843480-d3d4-4a01-ab14-a6602bbd3253",
+  "workflow_id": "wf_1780507143.9057",
+  "node_name": "dependency",
+  "status": "completed",
+  "timestamp": "2026-06-03T22:50:13.457089",
+  "data": {
+    "workflow_id": "wf_1780507143.9057",
+    "request": "deploy it productions",
+    "created_at": "2026-06-03T22:49:03.905735",
+    "current_step": "planner",
+    "plan": "Step 1: Review the deployment request to confirm it's ready for production.\nStep 2: Coordinate with relevant teams to schedule the deployment during a maintenance window.\nStep 3: Build the production artifact, such as compiling code or packaging software.\nStep 4: Deploy the software to the staging environment for initial validation and testing.\nStep 5: Perform smoke tests on the staging deployment to ensure basic functionality works.\nStep 6: If staging tests pass, deploy the software to the production environment following established procedures.\nStep 7: Monitor the production system closely for the first few hours, checking logs and metrics.\nStep 8: If any issues are detected post-deployment, initiate the rollback procedure to revert to the previous stable version.\nStep 9: Document the deployment process and results for future reference.",
+    "plan_summary": "This operational workflow plan provides a structured approach to deploying software to production, including preparation, testing, deployment execution, and post-deployment monitoring to minimize risks and ensure smooth operations.",
+    "workflow_type": "Operational Deployment Workflow",
+    "dependencies": [
+      "CI/CD System (e.g., Jenkins or GitHub Actions)",
+      "Build Tool (e.g., Maven, Gradle, or similar for compiling code)",
+      "Deployment Orchestration Tool (e.g., Ansible or Capistrano)",
+      "Staging Environment Infrastructure",
+      "Production Environment Infrastructure",
+      "Monitoring Tools (e.g., Prometheus or Grafana)",
+      "Access Credentials for all systems involved",
+      "Smoke Testing Framework (e.g., JUnit or Selenium)"
+    ],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "timeout": 120,
+      "require_llm": true
+    },
+    "planner_llm_used": true,
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T22:50:13.455939",
+        "status": "completed",
+        "checkpoint_id": "778d5701-ed7e-427a-ae44-c2cf51dfff0e"
+      }
+    ],
+    "checkpoints": [],
+    "error": null,
+    "dependency_assumptions": [
+      "The deployment request has been reviewed and approved for production",
+      "Teams are available to coordinate during a scheduled maintenance window",
+      "Staging environment is isolated and functional for validation testing",
+      "Smoke tests are defined, automated, or can be performed without affecting production",
+      "Previous stable version exists and is accessible for rollback if needed",
+      "Production environment has proper logging configured to detect issues post-deployment"
+    ],
+    "dependency_llm_used": true
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T22:51:56.322420"
+}

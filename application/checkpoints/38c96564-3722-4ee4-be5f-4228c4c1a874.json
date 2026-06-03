@@ -1,0 +1,38 @@
+{
+  "id": "38c96564-3722-4ee4-be5f-4228c4c1a874",
+  "workflow_id": "wf_1780509254.862027",
+  "node_name": "approval_gate",
+  "status": "completed",
+  "timestamp": "2026-06-03T23:25:58.454377",
+  "data": {
+    "workflow_id": "wf_1780509254.862027",
+    "request": "Deploy this in the dev environment",
+    "created_at": "2026-06-03T23:24:14.862052",
+    "current_step": "planner",
+    "plan": "",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "google/gemma-4-26b-a4b",
+      "timeout": 80,
+      "max_tokens": 450,
+      "require_llm": true
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": "the JSON object must be str, bytes or bytearray, not dict",
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "_workflow_rejected": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T23:25:58.456462"
+}

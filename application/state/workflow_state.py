@@ -30,11 +30,30 @@ class WorkflowState(TypedDict, total=False):
     
     # Output fields
     plan: str
+    plan_summary: str
+    workflow_type: str
     dependencies: List[str]
+    dependency_assumptions: List[str]
     risks: List[str]
+    risk_score: int
+    risk_level: str
+    mitigations: List[str]
     governance_output: str
+    policy_checks: List[str]
     action_result: str
+    execution_steps: List[str]
     evaluation_result: str
+    success_criteria: List[str]
+    next_actions: List[str]
+    
+    # LLM fields
+    llm_config: dict
+    planner_llm_used: bool
+    dependency_llm_used: bool
+    risk_llm_used: bool
+    governance_llm_used: bool
+    action_llm_used: bool
+    evaluator_llm_used: bool
     
     # Approval fields
     human_approval_required: bool

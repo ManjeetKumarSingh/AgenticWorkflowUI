@@ -1,0 +1,68 @@
+{
+  "id": "3a2d3ae5-1680-433e-b322-ec8ffe54abdb",
+  "workflow_id": "wf_1780504292.00751",
+  "node_name": "risk",
+  "status": "completed",
+  "timestamp": "2026-06-03T22:01:32.014715",
+  "data": {
+    "workflow_id": "wf_1780504292.00751",
+    "request": "Deploy Customer Portal ToRisk environmen",
+    "created_at": "2026-06-03T22:01:32.007558",
+    "current_step": "dependency",
+    "plan": "Step 1: Understand requested deployment scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform deployment with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for Deploy Customer Portal ToRisk environmen",
+    "workflow_type": "deployment",
+    "dependencies": [
+      "CI/CD pipeline",
+      "Container registry",
+      "Target environment access"
+    ],
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "risks": [
+      "Deployment failure or partial rollout",
+      "Access or credential readiness issue"
+    ],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 30
+    },
+    "planner_llm_used": false,
+    "dependency_llm_used": false,
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T22:01:32.013242",
+        "status": "completed",
+        "checkpoint_id": "6cfa559d-afc5-4b59-89fb-ca0963567d73"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T22:01:32.014394",
+        "status": "completed",
+        "checkpoint_id": "0bccb4bf-bee5-4bec-a292-d27acd48504e"
+      }
+    ],
+    "checkpoints": [],
+    "error": null,
+    "risk_score": 45,
+    "risk_level": "medium",
+    "mitigations": [
+      "Validate dependencies before execution",
+      "Prepare rollback steps",
+      "Monitor key signals after execution"
+    ],
+    "risk_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T22:01:32.015013"
+}

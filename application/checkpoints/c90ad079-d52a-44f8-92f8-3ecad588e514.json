@@ -1,0 +1,27 @@
+{
+  "id": "c90ad079-d52a-44f8-92f8-3ecad588e514",
+  "workflow_id": "wf_1780473409.800735",
+  "node_name": "planner",
+  "status": "completed",
+  "timestamp": "2026-06-03T13:26:49.801792",
+  "data": {
+    "workflow_id": "wf_1780473409.800735",
+    "request": "Get data from db ",
+    "created_at": "2026-06-03T13:26:49.800763",
+    "current_step": "planner",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T13:26:49.805092"
+}

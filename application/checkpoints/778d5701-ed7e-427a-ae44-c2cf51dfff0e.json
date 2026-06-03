@@ -1,0 +1,37 @@
+{
+  "id": "778d5701-ed7e-427a-ae44-c2cf51dfff0e",
+  "workflow_id": "wf_1780507143.9057",
+  "node_name": "planner",
+  "status": "completed",
+  "timestamp": "2026-06-03T22:49:03.907037",
+  "data": {
+    "workflow_id": "wf_1780507143.9057",
+    "request": "deploy it productions",
+    "created_at": "2026-06-03T22:49:03.905735",
+    "current_step": "planner",
+    "plan": "Step 1: Review the deployment request to confirm it's ready for production.\nStep 2: Coordinate with relevant teams to schedule the deployment during a maintenance window.\nStep 3: Build the production artifact, such as compiling code or packaging software.\nStep 4: Deploy the software to the staging environment for initial validation and testing.\nStep 5: Perform smoke tests on the staging deployment to ensure basic functionality works.\nStep 6: If staging tests pass, deploy the software to the production environment following established procedures.\nStep 7: Monitor the production system closely for the first few hours, checking logs and metrics.\nStep 8: If any issues are detected post-deployment, initiate the rollback procedure to revert to the previous stable version.\nStep 9: Document the deployment process and results for future reference.",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "timeout": 120,
+      "require_llm": true
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": null,
+    "plan_summary": "This operational workflow plan provides a structured approach to deploying software to production, including preparation, testing, deployment execution, and post-deployment monitoring to minimize risks and ensure smooth operations.",
+    "workflow_type": "Operational Deployment Workflow",
+    "planner_llm_used": true
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T22:50:13.455564"
+}

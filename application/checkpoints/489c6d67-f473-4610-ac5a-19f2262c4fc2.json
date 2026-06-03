@@ -1,0 +1,50 @@
+{
+  "id": "489c6d67-f473-4610-ac5a-19f2262c4fc2",
+  "workflow_id": "wf_1780473348.05008",
+  "node_name": "governance",
+  "status": "paused",
+  "timestamp": "2026-06-03T13:25:48.057173",
+  "data": {
+    "workflow_id": "wf_1780473348.05008",
+    "request": "Deploy applications in dev",
+    "created_at": "2026-06-03T13:25:48.050103",
+    "current_step": "governance",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [
+      "Redis",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": true,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T13:25:48.055269",
+        "status": "completed",
+        "checkpoint_id": "59343840-310d-4263-b034-c0bfcb48266e"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T13:25:48.056190",
+        "status": "completed",
+        "checkpoint_id": "4252cb40-c344-44a4-b3d6-2d38b5eaf2ed"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T13:25:48.056924",
+        "status": "completed",
+        "checkpoint_id": "7e0292d7-ef8a-47cd-b35c-2d673ace2fef"
+      }
+    ],
+    "checkpoints": [],
+    "error": null
+  },
+  "human_approval_required": true,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T13:25:48.057535"
+}

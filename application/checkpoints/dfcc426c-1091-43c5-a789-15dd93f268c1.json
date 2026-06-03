@@ -1,0 +1,76 @@
+{
+  "id": "dfcc426c-1091-43c5-a789-15dd93f268c1",
+  "workflow_id": "wf_1780470142.690777",
+  "node_name": "awaiting_approval",
+  "status": "rejected",
+  "timestamp": "2026-06-03T12:32:22.697361",
+  "data": {
+    "workflow_id": "wf_1780470142.690777",
+    "request": "Get data from production",
+    "created_at": "2026-06-03T12:32:22.690796",
+    "current_step": "awaiting_approval",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [
+      "Redis",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "risks": [
+      "High Traffic",
+      "Deployment Risk"
+    ],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": true,
+    "approval_status": "rejected",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T12:32:22.693640",
+        "status": "completed",
+        "checkpoint_id": "309da444-33e0-43b8-9224-fb43e64af402"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T12:32:22.694529",
+        "status": "completed",
+        "checkpoint_id": "bb250d1f-0f5e-4759-be79-98bc9d0602ff"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T12:32:22.695248",
+        "status": "completed",
+        "checkpoint_id": "8e952311-6af7-4481-8515-175563ce8738"
+      },
+      {
+        "step": "governance",
+        "timestamp": "2026-06-03T12:32:22.696139",
+        "status": "rejected",
+        "checkpoint_id": "025de290-6c7b-4a26-9789-75e552c21387"
+      },
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-03T12:32:22.696997",
+        "status": "rejected",
+        "checkpoint_id": "89d0df28-b5ae-40b0-bfbb-e58bdb4242ff"
+      },
+      {
+        "step": "awaiting_approval",
+        "timestamp": "2026-06-03T12:32:22.697856",
+        "status": "rejected",
+        "checkpoint_id": "dfcc426c-1091-43c5-a789-15dd93f268c1"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "error": null,
+    "_workflow_rejected": true,
+    "human_feedback": "Rejected by user",
+    "updated_at": "2026-06-03T12:32:31.779523"
+  },
+  "human_approval_required": false,
+  "approval_status": "rejected",
+  "feedback": "Rejected by user",
+  "updated_at": "2026-06-03T12:32:31.789906"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "4a211ea9-e0d4-4cff-89ba-3a45f15e16aa",
+  "workflow_id": "wf_1780506875.271929",
+  "node_name": "planner",
+  "status": "failed",
+  "timestamp": "2026-06-03T22:44:35.273350",
+  "data": {
+    "workflow_id": "wf_1780506875.271929",
+    "request": "KafkaConsumer",
+    "created_at": "2026-06-03T22:44:35.271940",
+    "current_step": "planner",
+    "plan": "",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "timeout": 30,
+      "require_llm": true
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "error": "LM Studio call failed for model 'deepseek/deepseek-r1-0528-qwen3-8b': timed out",
+  "updated_at": "2026-06-03T22:45:05.291993"
+}

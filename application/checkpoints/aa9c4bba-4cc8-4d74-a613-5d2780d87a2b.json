@@ -1,0 +1,88 @@
+{
+  "id": "aa9c4bba-4cc8-4d74-a613-5d2780d87a2b",
+  "workflow_id": "wf_1780509105.16598",
+  "node_name": "governance",
+  "status": "completed",
+  "timestamp": "2026-06-03T23:21:45.174875",
+  "data": {
+    "workflow_id": "wf_1780509105.16598",
+    "request": "Deploy this in the productions environment",
+    "created_at": "2026-06-03T23:21:45.166305",
+    "current_step": "risk",
+    "plan": "Step 1: Understand requested deployment scope\nStep 2: Inspect dependencies and target production environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform deployment with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for Deploy this in the productions environment",
+    "workflow_type": "deployment",
+    "dependencies": [
+      "CI/CD pipeline",
+      "Container registry",
+      "Target environment access",
+      "Production cluster",
+      "Monitoring stack",
+      "Rollback artifact"
+    ],
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "risks": [
+      "Customer impact during production change",
+      "Rollback complexity",
+      "Deployment failure or partial rollout",
+      "Access or credential readiness issue"
+    ],
+    "risk_score": 90,
+    "risk_level": "high",
+    "mitigations": [
+      "Validate dependencies before execution",
+      "Prepare rollback steps",
+      "Monitor key signals after execution"
+    ],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 15,
+      "max_tokens": 450,
+      "require_llm": false
+    },
+    "planner_llm_used": false,
+    "dependency_llm_used": false,
+    "risk_llm_used": false,
+    "human_approval_required": true,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T23:21:45.171488",
+        "status": "completed",
+        "checkpoint_id": "5d89dfbc-cb2d-4864-964a-5dafbd0ed9d7"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T23:21:45.172755",
+        "status": "completed",
+        "checkpoint_id": "0fd067fd-b0d3-44ad-a2ba-0e221c8263dd"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T23:21:45.174379",
+        "status": "completed",
+        "checkpoint_id": "536cf18f-9b11-4601-855b-7a7892dfc522"
+      }
+    ],
+    "checkpoints": [],
+    "error": null,
+    "governance_output": "Human approval required before execution.",
+    "policy_checks": [
+      "Risk threshold evaluated",
+      "Environment sensitivity evaluated",
+      "Rollback readiness recommended"
+    ],
+    "governance_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T23:21:45.175259"
+}

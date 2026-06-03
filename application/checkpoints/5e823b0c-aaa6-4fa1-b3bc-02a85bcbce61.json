@@ -1,0 +1,118 @@
+{
+  "id": "5e823b0c-aaa6-4fa1-b3bc-02a85bcbce61",
+  "workflow_id": "wf_1780504313.955794",
+  "node_name": "evaluator",
+  "status": "completed",
+  "timestamp": "2026-06-03T22:01:53.961210",
+  "data": {
+    "workflow_id": "wf_1780504313.955794",
+    "request": "hello ",
+    "created_at": "2026-06-03T22:01:53.955804",
+    "current_step": "action",
+    "plan": "Step 1: Understand requested execution scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform execution with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for hello ",
+    "workflow_type": "execution",
+    "dependencies": [
+      "Source repository",
+      "Runtime environment",
+      "Monitoring access"
+    ],
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "risks": [
+      "Access or credential readiness issue"
+    ],
+    "risk_score": 30,
+    "risk_level": "low",
+    "mitigations": [
+      "Validate dependencies before execution",
+      "Prepare rollback steps",
+      "Monitor key signals after execution"
+    ],
+    "governance_output": "No human approval required based on current request and risk.",
+    "policy_checks": [
+      "Risk threshold evaluated",
+      "Environment sensitivity evaluated",
+      "Rollback readiness recommended"
+    ],
+    "action_result": "Simulated execution completed for target environment.",
+    "execution_steps": [
+      "Validated approval and dependencies",
+      "Prepared execution context",
+      "Simulated requested workflow action",
+      "Captured post-action status"
+    ],
+    "evaluation_result": "Workflow completed with low residual risk.",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 30
+    },
+    "planner_llm_used": false,
+    "dependency_llm_used": false,
+    "risk_llm_used": false,
+    "governance_llm_used": false,
+    "action_llm_used": false,
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T22:01:53.957491",
+        "status": "completed",
+        "checkpoint_id": "2bbdb417-3b81-4090-bd8a-c2757e4b93d3"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T22:01:53.958301",
+        "status": "completed",
+        "checkpoint_id": "3dc50411-ba41-43be-a51e-4f790ef8652e"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T22:01:53.958850",
+        "status": "completed",
+        "checkpoint_id": "e16fa117-caa1-4fd3-b023-3b676ae18ea7"
+      },
+      {
+        "step": "governance",
+        "timestamp": "2026-06-03T22:01:53.959332",
+        "status": "completed",
+        "checkpoint_id": "f286ed8c-fa02-46cc-aae4-32e10e901bec"
+      },
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-03T22:01:53.960072",
+        "status": "completed",
+        "checkpoint_id": "10510083-627d-4d1f-8515-d4cacc7639c4"
+      },
+      {
+        "step": "action",
+        "timestamp": "2026-06-03T22:01:53.960935",
+        "status": "completed",
+        "checkpoint_id": "00d3028e-98ee-45f4-9159-1e8d873f6cf9"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "error": null,
+    "success_criteria": [
+      "Workflow reached final evaluation step",
+      "Approval rules were applied",
+      "Execution result was captured"
+    ],
+    "next_actions": [
+      "Review execution history",
+      "Validate monitoring signals",
+      "Document final outcome"
+    ],
+    "evaluator_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T22:01:53.961437"
+}

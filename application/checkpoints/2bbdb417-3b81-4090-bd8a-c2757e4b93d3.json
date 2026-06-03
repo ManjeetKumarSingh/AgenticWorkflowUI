@@ -1,0 +1,36 @@
+{
+  "id": "2bbdb417-3b81-4090-bd8a-c2757e4b93d3",
+  "workflow_id": "wf_1780504313.955794",
+  "node_name": "planner",
+  "status": "completed",
+  "timestamp": "2026-06-03T22:01:53.956334",
+  "data": {
+    "workflow_id": "wf_1780504313.955794",
+    "request": "hello ",
+    "created_at": "2026-06-03T22:01:53.955804",
+    "current_step": "planner",
+    "plan": "Step 1: Understand requested execution scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform execution with monitoring and rollback readiness",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 30
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": null,
+    "plan_summary": "Prepared a workflow plan for hello ",
+    "workflow_type": "execution",
+    "planner_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T22:01:53.957049"
+}

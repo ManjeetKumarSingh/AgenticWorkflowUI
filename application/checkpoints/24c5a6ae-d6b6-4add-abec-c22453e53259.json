@@ -1,0 +1,38 @@
+{
+  "id": "24c5a6ae-d6b6-4add-abec-c22453e53259",
+  "workflow_id": "wf_1780470415.170645",
+  "node_name": "dependency",
+  "status": "completed",
+  "timestamp": "2026-06-03T12:36:55.173639",
+  "data": {
+    "workflow_id": "wf_1780470415.170645",
+    "request": "Event driven for postgress ",
+    "created_at": "2026-06-03T12:36:55.170671",
+    "current_step": "planner",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [
+      "Redis",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T12:36:55.173221",
+        "status": "completed",
+        "checkpoint_id": "2569b056-4605-48ea-a13e-b781b71aac5b"
+      }
+    ],
+    "checkpoints": [],
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T12:36:55.173989"
+}

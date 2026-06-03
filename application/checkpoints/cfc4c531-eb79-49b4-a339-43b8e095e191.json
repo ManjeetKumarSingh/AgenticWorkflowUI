@@ -1,0 +1,36 @@
+{
+  "id": "cfc4c531-eb79-49b4-a339-43b8e095e191",
+  "workflow_id": "wf_1780509172.757678",
+  "node_name": "planner",
+  "status": "failed",
+  "timestamp": "2026-06-03T23:22:52.761381",
+  "data": {
+    "workflow_id": "wf_1780509172.757678",
+    "request": "Deploy this in the dev environment",
+    "created_at": "2026-06-03T23:22:52.757717",
+    "current_step": "planner",
+    "plan": "",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "google/gemma-4-26b-a4b",
+      "timeout": 15,
+      "max_tokens": 450,
+      "require_llm": true
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "error": "LM Studio call failed for model 'google/gemma-4-26b-a4b': timed out",
+  "updated_at": "2026-06-03T23:23:08.019856"
+}

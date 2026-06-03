@@ -1,0 +1,36 @@
+{
+  "id": "7ce65988-7745-4f7a-915d-1c536e0f2e6f",
+  "workflow_id": "wf_1780509944.589155",
+  "node_name": "dependency",
+  "status": "failed",
+  "timestamp": "2026-06-03T23:36:35.463647",
+  "data": {
+    "workflow_id": "wf_1780509944.589155",
+    "request": " is it safe to get the data from db of user",
+    "created_at": "2026-06-03T23:35:44.589185",
+    "current_step": "planner",
+    "plan": "",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "timeout": 80,
+      "max_tokens": 450,
+      "require_llm": true
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": "the JSON object must be str, bytes or bytearray, not NoneType"
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "error": "the JSON object must be str, bytes or bytearray, not NoneType",
+  "updated_at": "2026-06-03T23:36:55.027213"
+}

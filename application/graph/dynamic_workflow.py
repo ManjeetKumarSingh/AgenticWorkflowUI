@@ -6,6 +6,7 @@ from langgraph.graph import StateGraph, END
 from memory.checkpoint_manager import CheckpointManager
 from state.workflow_state import WorkflowState, ApprovalStatus, CheckpointStatus
 from graph.workflow_config import WorkflowConfig, RouterType
+from utils.llm_studio import LmStudioError
 
 class DynamicWorkflow:
     """Dynamic workflow builder with human-in-the-loop and checkpoints"""
@@ -104,6 +105,13 @@ class DynamicWorkflow:
                 })
                 
                 return result
+            except LmStudioError as e:
+                self.checkpoint_manager.update_checkpoint(
+                    checkpoint_id,
+                    status="failed",
+                    error=str(e)
+                )
+                raise
             except Exception as e:
                 self.checkpoint_manager.update_checkpoint(
                     checkpoint_id,
@@ -170,6 +178,13 @@ class DynamicWorkflow:
                 })
                 
                 return result
+            except LmStudioError as e:
+                self.checkpoint_manager.update_checkpoint(
+                    checkpoint_id,
+                    status="failed",
+                    error=str(e)
+                )
+                raise
             except Exception as e:
                 result = state.copy()
                 result["error"] = str(e)

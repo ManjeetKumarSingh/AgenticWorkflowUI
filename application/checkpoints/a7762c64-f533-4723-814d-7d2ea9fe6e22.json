@@ -1,0 +1,51 @@
+{
+  "id": "a7762c64-f533-4723-814d-7d2ea9fe6e22",
+  "workflow_id": "wf_1780504352.378692",
+  "node_name": "dependency",
+  "status": "completed",
+  "timestamp": "2026-06-03T22:02:32.383864",
+  "data": {
+    "workflow_id": "wf_1780504352.378692",
+    "request": "get emp deyails",
+    "created_at": "2026-06-03T22:02:32.378709",
+    "current_step": "planner",
+    "plan": "Step 1: Understand requested execution scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform execution with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for get emp deyails",
+    "workflow_type": "execution",
+    "dependencies": [
+      "Source repository",
+      "Runtime environment",
+      "Monitoring access"
+    ],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 30
+    },
+    "planner_llm_used": false,
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T22:02:32.383412",
+        "status": "completed",
+        "checkpoint_id": "a21d5168-4a1b-43e0-bb45-6ad63fd297fe"
+      }
+    ],
+    "checkpoints": [],
+    "error": null,
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "dependency_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T22:02:32.384993"
+}

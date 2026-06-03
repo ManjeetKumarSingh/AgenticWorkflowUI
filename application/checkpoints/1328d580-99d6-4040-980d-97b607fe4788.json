@@ -1,0 +1,85 @@
+{
+  "id": "1328d580-99d6-4040-980d-97b607fe4788",
+  "workflow_id": "wf_1780498697.544035",
+  "node_name": "risk",
+  "status": "completed",
+  "timestamp": "2026-06-03T20:29:00.199468",
+  "data": {
+    "workflow_id": "wf_1780498697.544035",
+    "request": "Deploy the change to production ",
+    "created_at": "2026-06-03T20:28:17.544073",
+    "current_step": "dependency",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [
+      "Redis",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "risks": [
+      "High Traffic",
+      "Deployment Risk"
+    ],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": true,
+    "approval_status": "approved",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T20:28:17.549588",
+        "status": "completed",
+        "checkpoint_id": "446e9ba9-76bc-4fa3-a503-31e1529a5734"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T20:28:17.550695",
+        "status": "completed",
+        "checkpoint_id": "efabf4e5-7a78-43fe-82db-7d8359c9dbd0"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T20:28:17.551450",
+        "status": "completed",
+        "checkpoint_id": "6805b5d1-32be-452a-a760-ba6533bf5287"
+      },
+      {
+        "step": "governance",
+        "timestamp": "2026-06-03T20:28:17.552082",
+        "status": "awaiting_approval",
+        "checkpoint_id": "0df12fef-9979-4605-a2c1-2a5862a771e4"
+      },
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-03T20:28:17.552749",
+        "status": "completed",
+        "checkpoint_id": "a18277c0-eea9-4b85-aa69-8542ea0046d5"
+      },
+      {
+        "step": "awaiting_approval",
+        "timestamp": "2026-06-03T20:28:17.554191",
+        "status": "completed",
+        "checkpoint_id": "d8d54dfc-6c75-4865-801a-726da81e048b"
+      },
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T20:29:00.198717",
+        "status": "completed",
+        "checkpoint_id": "106462f6-b7eb-4eba-aea3-d93b0384b8af"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T20:29:00.199300",
+        "status": "completed",
+        "checkpoint_id": "7326b2b3-1617-4286-a500-b6ff3116d54d"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T20:29:00.199713"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "840a7b27-ff16-4155-8690-ea09fd26351e",
+  "workflow_id": "wf_1780509254.862027",
+  "node_name": "dependency",
+  "status": "failed",
+  "timestamp": "2026-06-03T23:24:42.730801",
+  "data": {
+    "workflow_id": "wf_1780509254.862027",
+    "request": "Deploy this in the dev environment",
+    "created_at": "2026-06-03T23:24:14.862052",
+    "current_step": "planner",
+    "plan": "",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "google/gemma-4-26b-a4b",
+      "timeout": 80,
+      "max_tokens": 450,
+      "require_llm": true
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": "the JSON object must be str, bytes or bytearray, not NoneType"
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "error": "the JSON object must be str, bytes or bytearray, not NoneType",
+  "updated_at": "2026-06-03T23:25:09.363063"
+}

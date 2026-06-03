@@ -1,0 +1,45 @@
+{
+  "id": "71c0f6d8-62fd-4ffe-8711-34cca0075aca",
+  "workflow_id": "wf_1780508603.27846",
+  "node_name": "evaluator",
+  "status": "failed",
+  "timestamp": "2026-06-03T23:14:50.749052",
+  "data": {
+    "workflow_id": "wf_1780508603.27846",
+    "request": "Deploy it to production",
+    "created_at": "2026-06-03T23:13:23.278498",
+    "current_step": "approval_gate",
+    "plan": "",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "google/gemma-4-26b-a4b",
+      "timeout": 120,
+      "max_tokens": 450,
+      "require_llm": true
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-03T23:14:30.727864",
+        "status": "completed",
+        "checkpoint_id": "d575cc8f-ec51-45c8-a7d5-5689bfff463e"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "error": "the JSON object must be str, bytes or bytearray, not NoneType"
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "error": "the JSON object must be str, bytes or bytearray, not dict",
+  "updated_at": "2026-06-03T23:15:09.332713"
+}

@@ -1,0 +1,70 @@
+{
+  "id": "12362e54-3f1f-4863-9fe0-bc7baa135825",
+  "workflow_id": "wf_1780469597.543868",
+  "node_name": "planner",
+  "status": "completed",
+  "timestamp": "2026-06-03T12:23:57.437472",
+  "data": {
+    "workflow_id": "wf_1780469597.543868",
+    "request": "find the files in local DB ",
+    "created_at": "2026-06-03T12:23:17.543894",
+    "current_step": "awaiting_approval",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [
+      "Redis",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": true,
+    "approval_status": "approved",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T12:23:17.551953",
+        "status": "completed",
+        "checkpoint_id": "fc94b2ef-14e2-4a42-ba68-29f54db3e093"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T12:23:17.554282",
+        "status": "completed",
+        "checkpoint_id": "7172bf89-c363-4fa7-8a2b-873572310ce5"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T12:23:17.556725",
+        "status": "completed",
+        "checkpoint_id": "3210aebe-5b9b-4447-aaf7-8129265f4a0e"
+      },
+      {
+        "step": "governance",
+        "timestamp": "2026-06-03T12:23:17.559100",
+        "status": "awaiting_approval",
+        "checkpoint_id": "2617f165-ad10-4072-8ee1-51df7b2a5c2a"
+      },
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-03T12:23:17.560569",
+        "status": "completed",
+        "checkpoint_id": "b82cd738-1307-4a77-9e85-85c6605776b2"
+      },
+      {
+        "step": "awaiting_approval",
+        "timestamp": "2026-06-03T12:23:17.562111",
+        "status": "completed",
+        "checkpoint_id": "fd4c86d4-2d03-47b9-9d61-e8c191668664"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T12:23:57.440448"
+}

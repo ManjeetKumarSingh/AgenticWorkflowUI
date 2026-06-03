@@ -1,0 +1,104 @@
+{
+  "id": "c6fa3041-4365-49d7-afa2-425f77083e3a",
+  "workflow_id": "wf_1780504196.111732",
+  "node_name": "awaiting_approval",
+  "status": "rejected",
+  "timestamp": "2026-06-03T21:59:56.239064",
+  "data": {
+    "workflow_id": "wf_1780504196.111732",
+    "request": "Deploy Customer Portal ToRisk environmen",
+    "created_at": "2026-06-03T21:59:56.111753",
+    "current_step": "awaiting_approval",
+    "plan": "Step 1: Understand requested deployment scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform deployment with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for Deploy Customer Portal ToRisk environmen",
+    "workflow_type": "deployment",
+    "dependencies": [
+      "CI/CD pipeline",
+      "Container registry",
+      "Target environment access"
+    ],
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "risks": [
+      "Deployment failure or partial rollout",
+      "Access or credential readiness issue"
+    ],
+    "risk_score": 45,
+    "risk_level": "medium",
+    "mitigations": [
+      "Validate dependencies before execution",
+      "Prepare rollback steps",
+      "Monitor key signals after execution"
+    ],
+    "governance_output": "Human approval required before execution.",
+    "policy_checks": [
+      "Risk threshold evaluated",
+      "Environment sensitivity evaluated",
+      "Rollback readiness recommended"
+    ],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 30
+    },
+    "planner_llm_used": false,
+    "dependency_llm_used": false,
+    "risk_llm_used": false,
+    "governance_llm_used": false,
+    "human_approval_required": true,
+    "approval_status": "rejected",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T21:59:56.213851",
+        "status": "completed",
+        "checkpoint_id": "cf0d68d3-c118-45ce-a78e-59776503b92e"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T21:59:56.224557",
+        "status": "completed",
+        "checkpoint_id": "68e9b3de-04e3-46b7-8394-872be95ccbbc"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T21:59:56.229413",
+        "status": "completed",
+        "checkpoint_id": "50dbc1dd-98bd-414f-9781-8a18555bc4c0"
+      },
+      {
+        "step": "governance",
+        "timestamp": "2026-06-03T21:59:56.237543",
+        "status": "rejected",
+        "checkpoint_id": "b2399af7-1568-407a-a851-4a3acb7e34b1"
+      },
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-03T21:59:56.238200",
+        "status": "rejected",
+        "checkpoint_id": "51976879-79a5-47de-bf80-d7ab8c246cb3"
+      },
+      {
+        "step": "awaiting_approval",
+        "timestamp": "2026-06-03T21:59:56.240150",
+        "status": "rejected",
+        "checkpoint_id": "c6fa3041-4365-49d7-afa2-425f77083e3a"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "error": null,
+    "_workflow_rejected": true,
+    "human_feedback": "Rejected by user",
+    "updated_at": "2026-06-03T22:00:28.302465"
+  },
+  "human_approval_required": false,
+  "approval_status": "rejected",
+  "feedback": "Rejected by user",
+  "updated_at": "2026-06-03T22:00:28.311471"
+}

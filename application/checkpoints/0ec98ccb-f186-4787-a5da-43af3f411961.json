@@ -1,0 +1,65 @@
+{
+  "id": "0ec98ccb-f186-4787-a5da-43af3f411961",
+  "workflow_id": "wf_1780506991.850219",
+  "node_name": "risk",
+  "status": "completed",
+  "timestamp": "2026-06-03T22:46:31.856909",
+  "data": {
+    "workflow_id": "wf_1780506991.850219",
+    "request": "KafkaConsumer",
+    "created_at": "2026-06-03T22:46:31.850242",
+    "current_step": "dependency",
+    "plan": "Step 1: Understand requested execution scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform execution with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for KafkaConsumer",
+    "workflow_type": "execution",
+    "dependencies": [
+      "Kafka broker",
+      "Consumer lag dashboard"
+    ],
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 42,
+      "require_llm": false
+    },
+    "planner_llm_used": false,
+    "dependency_llm_used": false,
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T22:46:31.854359",
+        "status": "completed",
+        "checkpoint_id": "28540c62-ab9b-4504-a74e-84d70750984c"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T22:46:31.856335",
+        "status": "completed",
+        "checkpoint_id": "eba8afb7-c1d9-470b-be5a-7fee3458dc85"
+      }
+    ],
+    "checkpoints": [],
+    "error": null,
+    "risk_score": 20,
+    "risk_level": "low",
+    "mitigations": [
+      "Validate dependencies before execution",
+      "Prepare rollback steps",
+      "Monitor key signals after execution"
+    ],
+    "risk_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T22:46:31.857540"
+}

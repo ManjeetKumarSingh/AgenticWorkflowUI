@@ -1,0 +1,124 @@
+{
+  "id": "84295f60-d6d8-4122-bf7d-acf2e0606d10",
+  "workflow_id": "wf_1780509145.510066",
+  "node_name": "governance",
+  "status": "completed",
+  "timestamp": "2026-06-03T23:22:33.305073",
+  "data": {
+    "workflow_id": "wf_1780509145.510066",
+    "request": "Deploy this in the dev environment",
+    "created_at": "2026-06-03T23:22:25.510094",
+    "current_step": "risk",
+    "plan": "Step 1: Understand requested deployment scope\nStep 2: Inspect dependencies and target dev environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform deployment with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for Deploy this in the dev environment",
+    "workflow_type": "deployment",
+    "dependencies": [
+      "CI/CD pipeline",
+      "Container registry",
+      "Target environment access",
+      "Development environment",
+      "Feature branch",
+      "Developer credentials"
+    ],
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "risks": [
+      "Deployment failure or partial rollout",
+      "Access or credential readiness issue"
+    ],
+    "risk_score": 45,
+    "risk_level": "medium",
+    "mitigations": [
+      "Validate dependencies before execution",
+      "Prepare rollback steps",
+      "Monitor key signals after execution"
+    ],
+    "governance_output": "Human approval required before execution.",
+    "policy_checks": [
+      "Risk threshold evaluated",
+      "Environment sensitivity evaluated",
+      "Rollback readiness recommended"
+    ],
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 15,
+      "max_tokens": 450,
+      "require_llm": false
+    },
+    "planner_llm_used": false,
+    "dependency_llm_used": false,
+    "risk_llm_used": false,
+    "governance_llm_used": false,
+    "human_approval_required": true,
+    "approval_status": "approved",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T23:22:25.512907",
+        "status": "completed",
+        "checkpoint_id": "2fa57c6c-c314-43a1-aee7-cf7e558f859f"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T23:22:25.513514",
+        "status": "completed",
+        "checkpoint_id": "1250dbcc-71a0-4fa7-bf0a-cc156b36b22a"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T23:22:25.514241",
+        "status": "completed",
+        "checkpoint_id": "9f269bbd-b927-40f9-bfa4-f5401ee6548f"
+      },
+      {
+        "step": "governance",
+        "timestamp": "2026-06-03T23:22:25.516143",
+        "status": "completed",
+        "checkpoint_id": "5d5e7f79-5851-4533-a7e3-6dddf4f6ca2b"
+      },
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-03T23:22:25.516617",
+        "status": "completed",
+        "checkpoint_id": "609f55b6-dc27-433b-9b13-6c27cb31d2c0"
+      },
+      {
+        "step": "awaiting_approval",
+        "timestamp": "2026-06-03T23:22:25.517084",
+        "status": "completed",
+        "checkpoint_id": "45a0615b-5608-461e-ad23-9dc89b3ced71"
+      },
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T23:22:33.303433",
+        "status": "completed",
+        "checkpoint_id": "dc6e6c1c-dff3-4093-aa60-6b5c00e49db8"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-03T23:22:33.304152",
+        "status": "completed",
+        "checkpoint_id": "df172ade-cda4-40e5-98fe-41f499ba68c5"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-03T23:22:33.304869",
+        "status": "completed",
+        "checkpoint_id": "8a918e15-b18b-4826-b5c2-b6d88ff10855"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T23:22:33.305366"
+}

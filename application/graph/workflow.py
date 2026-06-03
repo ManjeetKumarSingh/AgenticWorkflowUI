@@ -63,7 +63,7 @@ WORKFLOW_NODES = {
     "governance": {
         "name": "Governance Check",
         "agent": governance_agent,
-        "requires_approval": True,  # Human approval needed
+        "requires_approval": False,
     },
     "approval_gate": {
         "name": "Approval Gate",

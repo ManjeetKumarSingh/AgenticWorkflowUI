@@ -1,0 +1,27 @@
+{
+  "id": "7f425be1-9eaa-4712-aad0-d700d5e0be0b",
+  "workflow_id": "wf_1780472065.75657",
+  "node_name": "planner",
+  "status": "completed",
+  "timestamp": "2026-06-03T13:04:25.757715",
+  "data": {
+    "workflow_id": "wf_1780472065.75657",
+    "request": "Execute in prod and give me employee data ",
+    "created_at": "2026-06-03T13:04:25.756599",
+    "current_step": "planner",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T13:04:25.759223"
+}

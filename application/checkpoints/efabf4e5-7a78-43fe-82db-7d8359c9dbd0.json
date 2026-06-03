@@ -1,0 +1,38 @@
+{
+  "id": "efabf4e5-7a78-43fe-82db-7d8359c9dbd0",
+  "workflow_id": "wf_1780498697.544035",
+  "node_name": "dependency",
+  "status": "completed",
+  "timestamp": "2026-06-03T20:28:17.550001",
+  "data": {
+    "workflow_id": "wf_1780498697.544035",
+    "request": "Deploy the change to production ",
+    "created_at": "2026-06-03T20:28:17.544073",
+    "current_step": "planner",
+    "plan": "\n    Step 1: Dependency Check\n    Step 2: Risk Analysis\n    Step 3: Governance Validation\n    Step 4: Deployment\n    ",
+    "dependencies": [
+      "Redis",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "risks": [],
+    "action_result": "",
+    "evaluation_result": "",
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-03T20:28:17.549588",
+        "status": "completed",
+        "checkpoint_id": "446e9ba9-76bc-4fa3-a503-31e1529a5734"
+      }
+    ],
+    "checkpoints": [],
+    "error": null
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-03T20:28:17.550549"
+}
