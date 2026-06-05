@@ -5,3 +5,5 @@ langchain-openai
 graphviz
 redis
 qdrant-client
+PyPDF2
+python-docx

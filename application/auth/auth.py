@@ -43,8 +43,9 @@ class AuthManager:
         with open(self.users_file, "w") as f:
             json.dump(self._users, f, indent=2)
 
-    def register(self, username: str, password: str, role: str = "user") -> Optional[str]:
+    def register(self, username: str, password: str, email: str = "", role: str = "user") -> Optional[str]:
         username = username.strip().lower()
+        email = email.strip().lower()
         if not username or not password:
             return "Username and password are required."
         if len(password) < 4:
@@ -61,6 +62,7 @@ class AuthManager:
 
         self._users[username] = {
             "username": username,
+            "email": email,
             "password_hash": pw_hash,
             "salt": salt,
             "role": role,
@@ -79,6 +81,7 @@ class AuthManager:
             return None
         return {
             "username": user["username"],
+            "email": user.get("email", ""),
             "role": user["role"],
         }
 
@@ -87,7 +90,7 @@ class AuthManager:
         raw = self._users.get(username)
         if not raw:
             return None
-        return {"username": raw["username"], "role": raw["role"]}
+        return {"username": raw["username"], "email": raw.get("email", ""), "role": raw["role"]}
 
     def has_permission(self, user: Optional[dict], permission: str) -> bool:
         if not user:
@@ -98,7 +101,7 @@ class AuthManager:
 
     def list_users(self) -> list[dict]:
         return [
-            {"username": u["username"], "role": u["role"], "created_at": u["created_at"]}
+            {"username": u["username"], "email": u.get("email", ""), "role": u["role"], "created_at": u["created_at"]}
             for u in self._users.values()
         ]
 

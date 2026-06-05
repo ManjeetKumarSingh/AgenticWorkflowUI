@@ -16,12 +16,18 @@ if os.path.isfile(_env_path):
                 _k, _v = _line.split("=", 1)
                 os.environ.setdefault(_k.strip(), _v.strip())
 
-st.set_page_config(page_title="Agentic Workflows", page_icon="🔐", layout="wide")
+st.set_page_config(page_title="FlowForge", page_icon="⚡", layout="wide")
 st.markdown("""
 <style>
 #root > div:first-child { padding: 0 !important; }
 .stApp > header { display: none !important; }
 .stApp { margin-top: -3.75rem; }
+div[data-testid="stDecoration"] { display: none !important; }
+div[data-testid="stToolbar"] { display: none !important; }
+div[data-testid="stToolbarActions"] { display: none !important; }
+#MainMenu { display: none !important; }
+.stDeployButton { display: none !important; }
+footer { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
 

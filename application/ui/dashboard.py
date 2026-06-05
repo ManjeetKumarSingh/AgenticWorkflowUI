@@ -1,6 +1,8 @@
 # ui/dashboard.py
 
 import time
+import base64
+from io import BytesIO
 
 import streamlit as st
 import streamlit.components.v1 as components
@@ -10,6 +12,55 @@ from memory.checkpoint_manager import CheckpointManager
 from utils.llm_studio import LmStudioError, list_lm_studio_models, chat_lm_studio_stream
 
 checkpoint_manager = CheckpointManager()
+
+
+def _extract_pdf_text(file_bytes):
+    try:
+        from PyPDF2 import PdfReader
+        reader = PdfReader(file_bytes)
+        return "\n".join(page.extract_text() or "" for page in reader.pages).strip()
+    except ImportError:
+        try:
+            import pypdf
+            reader = pypdf.PdfReader(file_bytes)
+            return "\n".join(page.extract_text() or "" for page in reader.pages).strip()
+        except ImportError:
+            return None
+
+
+def _extract_docx_text(file_bytes):
+    try:
+        import docx
+        doc = docx.Document(file_bytes)
+        return "\n".join(p.text for p in doc.paragraphs).strip()
+    except ImportError:
+        return None
+
+
+def _process_attachment(uploaded_file):
+    file_bytes = uploaded_file.read()
+    file_type = uploaded_file.type or "application/octet-stream"
+    file_name = uploaded_file.name
+    ext = file_name.rsplit(".", 1)[-1].lower() if "." in file_name else ""
+    result = {"name": file_name, "type": file_type, "size": len(file_bytes)}
+    if file_type.startswith("image/") or ext in ("png", "jpg", "jpeg", "gif", "bmp", "webp"):
+        if not file_type.startswith("image/"):
+            file_type = f"image/{ext}"
+        b64 = base64.b64encode(file_bytes).decode()
+        result["data_url"] = f"data:{file_type};base64,{b64}"
+        result["is_image"] = True
+    elif file_type == "application/pdf" or ext == "pdf":
+        text = _extract_pdf_text(BytesIO(file_bytes))
+        result["text"] = text if text else "[PDF content could not be extracted — try installing PyPDF2 or pypdf]"
+        result["is_image"] = False
+    elif file_type in ("application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document") or ext in ("doc", "docx"):
+        text = _extract_docx_text(BytesIO(file_bytes))
+        result["text"] = text if text else "[DOCX content could not be extracted — try installing python-docx]"
+        result["is_image"] = False
+    else:
+        result["text"] = None
+        result["is_image"] = False
+    return result
 
 
 def _copy_meta_html(content: str, model: str, time_str: str, token_str: str) -> str:
@@ -83,14 +134,28 @@ def render_dashboard(auth=None, redis_client=None):
 
     user = st.session_state.get("user", {})
     username = user.get("username", "")
+    email = user.get("email", "")
     role = user.get("role", "")
     can_run = auth.has_permission(user, "run_workflow") if auth else True
     can_create = auth.has_permission(user, "create_workflow") if auth else True
     can_approve = auth.has_permission(user, "approve_workflow") if auth else True
     can_chat = auth.has_permission(user, "chat") if auth else True
     can_manage = auth.has_permission(user, "manage_users") if auth else True
+    badge_color = {
+        "admin": "#ef4444",
+        "user": "#3b82f6",
+        "viewer": "#22c55e",
+    }.get(role, "#999")
 
-    st.title("⚡ Agentic Workflow Studio")
+    st.markdown("""
+        <div style="display:flex;align-items:center;gap:0.65rem;padding:0.75rem 0 0.5rem;">
+            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;flex-shrink:0;">⚡</div>
+            <div>
+                <div style="font-size:1.35rem;font-weight:700;color:var(--text-color);line-height:1.3;">FlowForge</div>
+                <div style="font-size:0.7rem;color:#999;letter-spacing:0.3px;">Agentic Workflow Studio</div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
     
     tab_labels = []
     tab_labels.append("▶️ Execute Workflow" if can_run else "▶️ Execute Workflow (🔒)")
@@ -828,6 +893,8 @@ def render_dashboard(auth=None, redis_client=None):
             st.session_state.chat_lm_model = "local-model"
         if "chat_settings_open" not in st.session_state:
             st.session_state.chat_settings_open = not st.session_state.chat_lm_connected
+        if "chat_attachments" not in st.session_state:
+            st.session_state.chat_attachments = []
 
         with st.expander("⚙️ Settings", expanded=st.session_state.chat_settings_open):
             st.caption("Configure your local LLM connection")
@@ -932,6 +999,14 @@ def render_dashboard(auth=None, redis_client=None):
                 role = message["role"]
                 avatar_icon = "👤" if role == "user" else "🤖"
                 with st.chat_message(role, avatar=avatar_icon):
+                    # Display attachments for user messages
+                    if role == "user":
+                        atts = message.get("attachments", [])
+                        for a in atts:
+                            if a.get("is_image") and a.get("data_url"):
+                                st.markdown(f'<div style="margin:0.25rem 0;"><img src="{a["data_url"]}" style="max-width:200px;max-height:160px;border-radius:0.6rem;border:1px solid #e2e8f0;" alt="{a["name"]}" /></div>', unsafe_allow_html=True)
+                            else:
+                                st.markdown(f'<div style="display:flex;align-items:center;gap:0.35rem;padding:0.15rem 0;font-size:0.72rem;color:#64748b;">📄 {a["name"]}</div>', unsafe_allow_html=True)
                     st.markdown(message["content"])
 
                     # Format timestamp
@@ -969,17 +1044,109 @@ def render_dashboard(auth=None, redis_client=None):
                             unsafe_allow_html=True,
                         )
 
+        # ── File attachments ──
+        st.markdown(
+            """<style>
+            /* File uploader icon button */
+            .att-btn-wrap div[data-testid="stFileUploader"] { margin:0 !important; padding:0 !important; width:34px !important; }
+            .att-btn-wrap div[data-testid="stFileUploader"] section { border:none !important; padding:0 !important; background:transparent !important; }
+            .att-btn-wrap div[data-testid="stFileUploader"] section > div:first-child { display:none !important; }
+            .att-btn-wrap div[data-testid="stFileUploader"] button {
+                width:34px !important; height:34px !important; padding:0 !important; min-height:0 !important;
+                border-radius:8px !important; border:1px solid #e2e8f0 !important;
+                background:#fff !important; cursor:pointer !important;
+                transition:all 0.15s ease !important;
+                font-size:0 !important; color:transparent !important;
+                position:relative !important;
+            }
+            .att-btn-wrap div[data-testid="stFileUploader"] button::before {
+                content:"📎";
+                position:absolute; inset:0;
+                display:flex; align-items:center; justify-content:center;
+                font-size:1.05rem; color:#64748b;
+            }
+            .att-btn-wrap div[data-testid="stFileUploader"] button:hover { border-color:#6366f1 !important; background:#eef2ff !important; }
+            .att-btn-wrap div[data-testid="stFileUploader"] button:hover::before { color:#6366f1; }
+            .att-strip { display:flex; gap:0.4rem; overflow-x:auto; padding:0.1rem 0; flex:1; scrollbar-width:thin; scrollbar-color:#e2e8f0 transparent; }
+            .att-strip::-webkit-scrollbar { height:3px; }
+            .att-strip::-webkit-scrollbar-thumb { background:#e2e8f0; border-radius:4px; }
+            .att-card {
+                display:flex; align-items:center; gap:0.4rem; flex-shrink:0;
+                padding:0.3rem 0.5rem; border-radius:8px; border:1px solid #e2e8f0;
+                background:#fafbfc; font-size:0.72rem; max-width:180px;
+                transition:all 0.15s ease; box-shadow:0 1px 2px rgba(0,0,0,0.02);
+            }
+            .att-card:hover { border-color:#cbd5e1; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+            .att-card .att-icon { font-size:0.9rem; flex-shrink:0; }
+            .att-card .att-body { overflow:hidden; }
+            .att-card .att-name { font-weight:500; color:#1e293b; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.3; }
+            .att-card .att-meta { font-size:0.6rem; color:#94a3b8; line-height:1.2; }
+            .att-clear { flex-shrink:0; }
+            </style>""",
+            unsafe_allow_html=True,
+        )
+
+        # ── File attachments ──
+        def _fmt_size(n):
+            if n < 1024: return f"{n}B"
+            if n < 1024*1024: return f"{n/1024:.1f}KB"
+            return f"{n/(1024*1024):.1f}MB"
+
+        # Upload button (compact paperclip icon)
+        st.markdown('<div class="att-btn-wrap">', unsafe_allow_html=True)
+        uploaded = st.file_uploader(
+            "", type=["png", "jpg", "jpeg", "gif", "bmp", "webp", "pdf", "doc", "docx"],
+            accept_multiple_files=True, key="chat_file_uploader", label_visibility="collapsed",
+        )
+        st.markdown('</div>', unsafe_allow_html=True)
+        if uploaded:
+            added = False
+            for f in uploaded:
+                if not any(a["name"] == f.name for a in st.session_state.chat_attachments):
+                    processed = _process_attachment(f)
+                    if processed.get("text") is None and not processed.get("is_image"):
+                        logger.warning("dashboard | ⚠️ Could not extract content from %s (unsupported format or missing library)", f.name)
+                    st.session_state.chat_attachments.append(processed)
+                    added = True
+            if added:
+                st.rerun()
+
+        # Card strip + clear
+        if st.session_state.chat_attachments:
+            cards = "".join(
+                f'<div class="att-card">'
+                f'<span class="att-icon">{"🖼️" if a.get("is_image") else "📄"}</span>'
+                f'<div class="att-body">'
+                f'<div class="att-name">{a["name"]}</div>'
+                f'<div class="att-meta">{_fmt_size(a["size"])}</div>'
+                f'</div>'
+                f'</div>'
+                for a in st.session_state.chat_attachments
+            )
+            st.markdown(f'<div class="att-strip">{cards}</div>', unsafe_allow_html=True)
+            if st.button("✕ Clear all", key="att_clear_btn", type="secondary", use_container_width=True):
+                st.session_state.chat_attachments = []
+                st.rerun()
+
         chat_placeholder = "Ask the local LLM..." if chat_connected else "Connect to LM Studio to chat"
         if prompt := st.chat_input(chat_placeholder, disabled=not chat_connected):
-            st.session_state.chat_history.append({
-                "role": "user",
-                "content": prompt,
-                "timestamp": datetime.now().isoformat(),
-            })
+            attachments = list(st.session_state.chat_attachments)
+            st.session_state.chat_attachments = []
+
+            user_msg = {"role": "user", "content": prompt, "timestamp": datetime.now().isoformat()}
+            if attachments:
+                user_msg["attachments"] = [{"name": a["name"], "type": a["type"], "is_image": a.get("is_image", False), "data_url": a.get("data_url"), "text": a.get("text")} for a in attachments]
+            st.session_state.chat_history.append(user_msg)
             _persist_chat(redis_client, username)
 
             with msg_window:
                 with st.chat_message("user", avatar="👤"):
+                    if attachments:
+                        for att in attachments:
+                            if att.get("is_image") and att.get("data_url"):
+                                st.markdown(f'<div style="margin:0.25rem 0;"><img src="{att["data_url"]}" style="max-width:200px;max-height:160px;border-radius:0.6rem;border:1px solid #e2e8f0;" alt="{att["name"]}" /></div>', unsafe_allow_html=True)
+                            else:
+                                st.markdown(f'<div style="display:flex;align-items:center;gap:0.35rem;padding:0.2rem 0;font-size:0.75rem;color:#64748b;">📄 {att["name"]}</div>', unsafe_allow_html=True)
                     st.markdown(prompt)
                     st.markdown(
                         f'<div class="msg-ts-row"><span class="msg-ts">{datetime.now().strftime("%I:%M %p").lstrip("0")}</span></div>',
@@ -994,10 +1161,26 @@ def render_dashboard(auth=None, redis_client=None):
 
                     messages = [
                         {"role": "system", "content": chat_system},
-                        *[{"role": m["role"], "content": m["content"]} for m in st.session_state.chat_history],
                     ]
+                    for m in st.session_state.chat_history:
+                        if m["role"] == "user":
+                            atts = m.get("attachments", [])
+                            if any(a.get("is_image") for a in atts):
+                                content_parts = [{"type": "text", "text": m["content"]}]
+                                for a in atts:
+                                    if a.get("is_image") and a.get("data_url"):
+                                        content_parts.append({"type": "image_url", "image_url": {"url": a["data_url"]}})
+                                messages.append({"role": "user", "content": content_parts})
+                            else:
+                                content = m["content"]
+                                text_parts = [a.get("text", "") for a in atts if a.get("text")]
+                                if text_parts:
+                                    content += "\n\n---\nAttached file contents:\n" + "\n\n".join(text_parts)
+                                messages.append({"role": "user", "content": content})
+                        else:
+                            messages.append({"role": "assistant", "content": m["content"]})
 
-                    total_chars = sum(len(m["content"]) for m in messages)
+                    total_chars = sum(len(str(m.get("content", ""))) for m in messages)
                     logger.info(
                         "dashboard | 🧠 Sending %d messages (%d system + %d conversation) as LLM context to model='%s' — "
                         "total %d chars, ~%d est. tokens (4:1 ratio, system=%d chars, conversation=%d chars, last_msg_role=%s)",
@@ -1153,27 +1336,119 @@ def render_dashboard(auth=None, redis_client=None):
     # ============ TAB 5: User Management (admin only) ============
     if tab5 is not None:
         with tab5:
-            st.subheader("👥 User Management")
-            st.caption("Manage users and their roles.")
+            ADMIN_COLOR = "#ef4444"
+            USER_COLOR = "#3b82f6"
+            VIEWER_COLOR = "#22c55e"
+
+            st.markdown(f"""
+            <style>
+            .um-header {{
+                display: flex; align-items: center; gap: 0.75rem;
+                padding: 0.5rem 0 0.75rem;
+            }}
+            .um-avatar {{
+                width: 44px; height: 44px; border-radius: 12px;
+                background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                display: flex; align-items: center; justify-content: center;
+                font-size: 1.1rem; font-weight: 700; color: #fff; flex-shrink: 0;
+                box-shadow: 0 4px 14px rgba(99,102,241,0.25);
+            }}
+            .um-title {{ font-size: 1.15rem; font-weight: 700; color: var(--text-color); }}
+            .um-subtitle {{ font-size: 0.72rem; color: #94a3b8; }}
+            .um-stats {{
+                display: flex; gap: 1rem; margin: 0.75rem 0 1.25rem;
+            }}
+            .um-stat {{
+                flex: 1; padding: 0.85rem 1rem; border-radius: 0.9rem;
+                border: 1px solid var(--border-color, rgba(229,231,235,0.3));
+                background: var(--background-color);
+                text-align: center;
+            }}
+            .um-stat-value {{ font-size: 1.6rem; font-weight: 700; line-height: 1.2; }}
+            .um-stat-label {{ font-size: 0.65rem; color: #94a3b8; margin-top: 0.15rem; text-transform: uppercase; letter-spacing: 0.5px; }}
+            .um-section-title {{ font-size: 0.8rem; font-weight: 600; color: var(--text-color); margin: 1rem 0 0.5rem; }}
+            .um-user-row {{
+                display: flex; align-items: center; justify-content: space-between;
+                padding: 0.65rem 0.85rem; border-radius: 0.75rem;
+                border: 1px solid var(--border-color, rgba(229,231,235,0.2));
+                margin-bottom: 0.35rem; transition: all 0.15s ease;
+            }}
+            .um-user-row:hover {{ border-color: rgba(99,102,241,0.15); background: rgba(99,102,241,0.02); }}
+            .um-user-info {{ display: flex; align-items: center; gap: 0.65rem; }}
+            .um-user-avatar-sm {{
+                width: 32px; height: 32px; border-radius: 8px;
+                background: linear-gradient(135deg, #6366f1, #8b5cf6);
+                display: flex; align-items: center; justify-content: center;
+                font-size: 0.75rem; font-weight: 700; color: #fff; flex-shrink: 0;
+            }}
+            .um-user-name {{ font-size: 0.82rem; font-weight: 600; color: var(--text-color); }}
+            .um-user-email {{ font-size: 0.62rem; color: #94a3b8; }}
+            .um-role-badge {{
+                font-size: 0.55rem; font-weight: 600; padding: 0.15rem 0.5rem;
+                border-radius: 6px; text-transform: uppercase; letter-spacing: 0.3px;
+            }}
+            .um-role-admin {{ color: {ADMIN_COLOR}; background: {ADMIN_COLOR}15; }}
+            .um-role-user {{ color: {USER_COLOR}; background: {USER_COLOR}15; }}
+            .um-role-viewer {{ color: {VIEWER_COLOR}; background: {VIEWER_COLOR}15; }}
+            .um-form-card {{
+                margin-top: 0.5rem; padding: 1.25rem; border-radius: 1rem;
+                border: 1px solid var(--border-color, rgba(229,231,235,0.2));
+                background: var(--background-color);
+            }}
+            div[data-testid="stForm"] .um-role-submit {{ margin-top: 0.5rem !important; }}
+            </style>
+            """, unsafe_allow_html=True)
 
             users = auth.list_users()
+            total = len(users)
+            admins = sum(1 for u in users if u["role"] == "admin")
+            std_users = sum(1 for u in users if u["role"] == "user")
+            viewers = sum(1 for u in users if u["role"] == "viewer")
+
+            st.markdown(f"""
+            <div class="um-header">
+                <div class="um-avatar">{username[0].upper() if username else "?"}</div>
+                <div>
+                    <div class="um-title">👥 User Management</div>
+                    <div class="um-subtitle">{username} · {email} · <span style="color:{badge_color};background:{badge_color}18;padding:0.05rem 0.35rem;border-radius:4px;font-size:0.6rem;font-weight:500;">{role}</span></div>
+                </div>
+            </div>
+            <div class="um-stats">
+                <div class="um-stat"><div class="um-stat-value" style="color:var(--text-color);">{total}</div><div class="um-stat-label">Total</div></div>
+                <div class="um-stat"><div class="um-stat-value" style="color:{ADMIN_COLOR};">{admins}</div><div class="um-stat-label">Admins</div></div>
+                <div class="um-stat"><div class="um-stat-value" style="color:{USER_COLOR};">{std_users}</div><div class="um-stat-label">Users</div></div>
+                <div class="um-stat"><div class="um-stat-value" style="color:{VIEWER_COLOR};">{viewers}</div><div class="um-stat-label">Viewers</div></div>
+            </div>
+            """, unsafe_allow_html=True)
+
             if not users:
                 st.info("No users found.")
             else:
-                data = []
+                st.markdown(f'<div class="um-section-title">All Users ({total})</div>', unsafe_allow_html=True)
                 for u in users:
-                    data.append({
-                        "Username": u["username"],
-                        "Role": u["role"],
-                        "Created": datetime.fromisoformat(u["created_at"]).strftime("%Y-%m-%d"),
-                    })
+                    initial = u["username"][0].upper()
+                    u_role = u["role"]
+                    u_email = u.get("email", "")
+                    role_class = f"um-role-{u_role}" if u_role in ("admin", "user", "viewer") else ""
+                    st.markdown(f"""
+                    <div class="um-user-row">
+                        <div class="um-user-info">
+                            <div class="um-user-avatar-sm">{initial}</div>
+                            <div>
+                                <div class="um-user-name">{u["username"]}</div>
+                                <div class="um-user-email">{u_email}</div>
+                            </div>
+                        </div>
+                        <span class="um-role-badge {role_class}">{u_role}</span>
+                    </div>
+                    """, unsafe_allow_html=True)
 
-                st.dataframe(data, use_container_width=True, hide_index=True)
-
-                st.divider()
-                st.markdown("**Change User Role**")
-                with st.form("role_form"):
-                    target = st.selectbox("Select User", [u["username"] for u in users if u["username"] != user.get("username", "")])
+            st.markdown(f'<div class="um-section-title">Role Management</div>', unsafe_allow_html=True)
+            st.markdown('<div class="um-form-card">', unsafe_allow_html=True)
+            with st.form("role_form"):
+                other_users = [u["username"] for u in users if u["username"] != username]
+                if other_users:
+                    target = st.selectbox("Select User", other_users, placeholder="Choose a user to update...")
                     new_role = st.selectbox("New Role", ["admin", "user", "viewer"])
                     if st.form_submit_button("Update Role", use_container_width=True, type="primary"):
                         err = auth.update_role(target, new_role)
@@ -1182,3 +1457,6 @@ def render_dashboard(auth=None, redis_client=None):
                         else:
                             st.success(f"Role updated: {target} → {new_role}")
                             st.rerun()
+                else:
+                    st.caption("No other users to manage.")
+            st.markdown('</div>', unsafe_allow_html=True)
