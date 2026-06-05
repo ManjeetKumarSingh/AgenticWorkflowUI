@@ -1,0 +1,45 @@
+{
+  "id": "ea99fe2f-b4a1-48b9-aaa2-dd3d8afc98da",
+  "workflow_id": "wf_1780555217.897832",
+  "node_name": "evaluator",
+  "status": "failed",
+  "timestamp": "2026-06-04T12:11:52.325594",
+  "data": {
+    "workflow_id": "wf_1780555217.897832",
+    "request": "Deploy Customer Portal To Production ",
+    "created_at": "2026-06-04T12:10:17.897841",
+    "current_step": "approval_gate",
+    "plan": "",
+    "dependencies": [],
+    "risk_present": false,
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "timeout": 60,
+      "max_tokens": 450,
+      "require_llm": false
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-04T12:11:34.933752",
+        "status": "completed",
+        "checkpoint_id": "7995ac62-82a3-4a0a-8618-96357994cbf7"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "error": "the JSON object must be str, bytes or bytearray, not NoneType"
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "error": "the JSON object must be str, bytes or bytearray, not NoneType",
+  "updated_at": "2026-06-04T12:12:09.833552"
+}

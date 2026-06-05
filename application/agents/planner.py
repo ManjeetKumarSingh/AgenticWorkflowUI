@@ -22,15 +22,14 @@ def _fallback_plan(request: str) -> dict:
 
 def _fallback_analysis(request: str) -> dict:
     plan = _fallback_plan(request)
+    request_lower = request.lower()
+    risk_present = "deploy" in request_lower or "production" in request_lower or "prod" in request_lower
     return {
         **plan,
         "dependencies": [],
         "assumptions": [],
-        "risks": [],
-        "risk_score": 20,
-        "risk_level": "low",
-        "mitigations": [],
-        "human_approval_required": "deploy" in request.lower() or "production" in request.lower(),
+        "risk_present": risk_present,
+        "human_approval_required": risk_present,
         "governance_output": "Governance evaluated with fallback rules.",
         "policy_checks": ["Fallback policy check"],
         "action_result": "Execution pending approval and action step.",
@@ -50,21 +49,24 @@ def planner_agent(state):
         response = ask_lm_studio(
             state,
             system_prompt=(
-                "You are a fast workflow analysis agent. Return only compact JSON. "
-                "Use short strings and max 3 items per list. No markdown."
+                "You are a fast workflow analyzer. Return only a compact JSON with: "
+                "plan (1-2 sentence summary of the workflow steps), "
+                "summary (one line), "
+                "workflow_type (deploy/execute/analyze), "
+                "risk_present (boolean), "
+                "human_approval_required (boolean). No markdown."
             ),
             user_prompt=(
-                "Analyze this workflow request once for all downstream agents.\n"
-                f"Request: {request}\n"
-                "Return JSON keys exactly: plan, summary, workflow_type, dependencies, assumptions, "
-                "risks, risk_score, risk_level, mitigations, human_approval_required, governance_output, "
-                "policy_checks, action_result, execution_steps, evaluation_result, success_criteria, next_actions."
+                f"Analyze this request: {request}\n"
+                "Return JSON: plan, summary, workflow_type, risk_present, human_approval_required."
             ),
             fallback=_fallback_analysis(request),
         )
 
     if "_llm_analysis" not in state:
-        state["_llm_analysis"] = response
+        fallback = _fallback_analysis(request)
+        fallback.update(response)
+        state["_llm_analysis"] = fallback
 
     state["plan"] = response.get("plan", _fallback_plan(request)["plan"])
     state["plan_summary"] = response.get("summary", "")

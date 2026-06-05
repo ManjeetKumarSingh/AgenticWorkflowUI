@@ -1,0 +1,60 @@
+{
+  "id": "b35bef5f-553d-4f7d-9afa-c4f41c0460f7",
+  "workflow_id": "wf_1780560121.280257",
+  "node_name": "risk",
+  "status": "completed",
+  "timestamp": "2026-06-04T13:32:01.284159",
+  "data": {
+    "workflow_id": "wf_1780560121.280257",
+    "request": "Deploy Customer Portal ToRisk environmen",
+    "created_at": "2026-06-04T13:32:01.280267",
+    "current_step": "dependency",
+    "plan": "Step 1: Understand requested deployment scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform deployment with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for Deploy Customer Portal ToRisk environmen",
+    "workflow_type": "deployment",
+    "dependencies": [
+      "CI/CD pipeline",
+      "Container registry",
+      "Target environment access"
+    ],
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "risk_present": true,
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 60,
+      "max_tokens": 450,
+      "require_llm": false
+    },
+    "planner_llm_used": false,
+    "dependency_llm_used": false,
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-04T13:32:01.283265",
+        "status": "completed",
+        "checkpoint_id": "43ef531a-767a-46db-b9aa-b47d173f83ff"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-04T13:32:01.283940",
+        "status": "completed",
+        "checkpoint_id": "29484ffb-10b3-4aba-af42-963d1a68f65b"
+      }
+    ],
+    "checkpoints": [],
+    "error": null,
+    "risk_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-04T13:32:01.284339"
+}

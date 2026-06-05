@@ -1,0 +1,45 @@
+{
+  "id": "ef2b0db4-df5f-441d-b35b-8d4e29748fd4",
+  "workflow_id": "wf_1780565439.174045",
+  "node_name": "evaluator",
+  "status": "failed",
+  "timestamp": "2026-06-04T15:04:41.468905",
+  "data": {
+    "workflow_id": "wf_1780565439.174045",
+    "request": "What is prod deployment.",
+    "created_at": "2026-06-04T15:00:39.174057",
+    "current_step": "approval_gate",
+    "plan": "",
+    "dependencies": [],
+    "risk_present": false,
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": true,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "deepseek/deepseek-r1-0528-qwen3-8b",
+      "timeout": 60,
+      "max_tokens": 450,
+      "require_llm": false
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "approval_gate",
+        "timestamp": "2026-06-04T15:04:24.607568",
+        "status": "completed",
+        "checkpoint_id": "846fa82a-6f52-4e4d-b2b2-4c97161d6f18"
+      }
+    ],
+    "checkpoints": [],
+    "_pause_for_approval": false,
+    "_workflow_paused": false,
+    "error": "the JSON object must be str, bytes or bytearray, not NoneType"
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "error": "the JSON object must be str, bytes or bytearray, not NoneType",
+  "updated_at": "2026-06-04T15:20:29.391120"
+}

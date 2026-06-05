@@ -34,10 +34,7 @@ class WorkflowState(TypedDict, total=False):
     workflow_type: str
     dependencies: List[str]
     dependency_assumptions: List[str]
-    risks: List[str]
-    risk_score: int
-    risk_level: str
-    mitigations: List[str]
+    risk_present: bool
     governance_output: str
     policy_checks: List[str]
     action_result: str

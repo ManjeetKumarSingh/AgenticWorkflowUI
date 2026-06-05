@@ -57,3 +57,241 @@
 2026-06-03 23:22:25,511 | INFO | agentic-ai | Plan generated for request: Deploy this in the dev environment
 2026-06-03 23:22:33,302 | INFO | agentic-ai | Plan generated for request: Deploy this in the dev environment
 2026-06-03 23:35:11,922 | INFO | agentic-ai | Plan generated for request: Deploy this in the dev environment
+2026-06-04 13:32:01,282 | INFO | agentic-ai | Plan generated for request: Deploy Customer Portal ToRisk environmen
+2026-06-04 13:32:29,518 | INFO | agentic-ai | Plan generated for request: Deploy Customer Portal production  environmen
+2026-06-04 13:32:46,608 | INFO | agentic-ai | Plan generated for request: hello 
+2026-06-04 15:00:31,697 | INFO | agentic-ai | Plan generated for request: What is prod deployment.
+2026-06-05 13:34:04,539 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 13:34:22,605 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 13:34:22,672 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 13:34:44,061 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 13:34:44,143 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 13:34:55,221 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 13:35:38,415 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 14:04:50,108 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 14:05:07,224 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 14:05:07,281 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 14:05:37,222 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 14:05:37,286 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 14:05:50,041 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 14:06:13,041 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:12:58,820 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:13:26,867 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:13:26,922 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:18:36,113 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:18:46,623 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:18:46,679 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:18:51,640 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:18:51,704 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:19:44,482 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:20:30,045 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:21:54,735 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 18:26:08,014 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 20:07:18,700 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 20:07:37,543 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 20:07:37,600 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 20:08:16,138 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 20:08:16,202 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 20:08:27,879 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 20:08:53,275 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-05 20:09:30,094 | INFO | agentic-ai | app | Redis client enabled=False
+2026-06-06 00:38:51,098 | INFO | agentic-ai | redis_client | Connected to Redis at redis://localhost:6379/0
+2026-06-06 00:38:51,139 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:38:58,536 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:38:58,593 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:38:58,597 | INFO | agentic-ai | redis_client | No chat history found at user:mn:chat_history (first login)
+2026-06-06 00:38:58,597 | INFO | agentic-ai | dashboard | Loaded 0 chat_history messages for 'mn' from Redis
+2026-06-06 00:38:58,598 | INFO | agentic-ai | redis_client | No workflow found at user:mn:last_workflow
+2026-06-06 00:38:58,598 | INFO | agentic-ai | dashboard | Loaded last_workflow for 'mn': none
+2026-06-06 00:38:58,598 | INFO | agentic-ai | redis_client | No workflow_id found at user:mn:last_workflow_id
+2026-06-06 00:38:58,599 | INFO | agentic-ai | dashboard | Loaded last_workflow_id for 'mn': none
+2026-06-06 00:39:08,995 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:09,090 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:13,673 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:13,682 | INFO | agentic-ai | dashboard | ✅ Persisting 1 messages for 'mn' to Redis
+2026-06-06 00:39:13,684 | INFO | agentic-ai | redis_client | ✅ Saved 1 messages to user:mn:chat_history (TTL=604800s)
+2026-06-06 00:39:22,438 | INFO | agentic-ai | dashboard | ✅ Persisting 2 messages for 'mn' to Redis
+2026-06-06 00:39:22,441 | INFO | agentic-ai | redis_client | ✅ Saved 2 messages to user:mn:chat_history (TTL=604800s)
+2026-06-06 00:39:25,865 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:25,928 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:33,831 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:33,908 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:40,947 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:46,874 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:46,940 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:46,942 | INFO | agentic-ai | redis_client | ✅ Loaded 2 messages from user:mn:chat_history
+2026-06-06 00:39:46,942 | INFO | agentic-ai | dashboard | Loaded 2 chat_history messages for 'mn' from Redis
+2026-06-06 00:39:46,943 | INFO | agentic-ai | redis_client | No workflow found at user:mn:last_workflow
+2026-06-06 00:39:46,943 | INFO | agentic-ai | dashboard | Loaded last_workflow for 'mn': none
+2026-06-06 00:39:46,943 | INFO | agentic-ai | redis_client | No workflow_id found at user:mn:last_workflow_id
+2026-06-06 00:39:46,943 | INFO | agentic-ai | dashboard | Loaded last_workflow_id for 'mn': none
+2026-06-06 00:39:59,117 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:39:59,198 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:40:08,094 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:40:08,104 | INFO | agentic-ai | dashboard | ✅ Persisting 3 messages for 'mn' to Redis
+2026-06-06 00:40:08,106 | INFO | agentic-ai | redis_client | ✅ Saved 3 messages to user:mn:chat_history (TTL=604800s)
+2026-06-06 00:40:18,096 | INFO | agentic-ai | dashboard | ✅ Persisting 4 messages for 'mn' to Redis
+2026-06-06 00:40:18,098 | INFO | agentic-ai | redis_client | ✅ Saved 4 messages to user:mn:chat_history (TTL=604800s)
+2026-06-06 00:40:25,456 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:40:25,522 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:40:44,085 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:40:45,546 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:40:47,272 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:40:54,851 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:40:54,897 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:43:40,026 | INFO | agentic-ai | redis_client | Connected to Redis at redis://localhost:6379/0
+2026-06-06 00:43:40,067 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:43:45,880 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:43:45,934 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:43:45,937 | INFO | agentic-ai | dashboard | User switched (None -> mn), reloading from Redis
+2026-06-06 00:43:45,939 | INFO | agentic-ai | redis_client | ✅ Loaded 4 messages from user:mn:chat_history
+2026-06-06 00:43:45,939 | INFO | agentic-ai | dashboard | Loaded 4 chat_history messages for 'mn' from Redis
+2026-06-06 00:43:45,939 | INFO | agentic-ai | redis_client | No workflow found at user:mn:last_workflow
+2026-06-06 00:43:45,940 | INFO | agentic-ai | dashboard | Loaded last_workflow for 'mn': none
+2026-06-06 00:43:45,940 | INFO | agentic-ai | redis_client | No workflow_id found at user:mn:last_workflow_id
+2026-06-06 00:43:45,940 | INFO | agentic-ai | dashboard | Loaded last_workflow_id for 'mn': none
+2026-06-06 00:43:57,139 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:09,494 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:09,548 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:09,550 | INFO | agentic-ai | dashboard | User switched (None -> mn), reloading from Redis
+2026-06-06 00:44:09,551 | INFO | agentic-ai | redis_client | ✅ Loaded 4 messages from user:mn:chat_history
+2026-06-06 00:44:09,551 | INFO | agentic-ai | dashboard | Loaded 4 chat_history messages for 'mn' from Redis
+2026-06-06 00:44:09,553 | INFO | agentic-ai | redis_client | No workflow found at user:mn:last_workflow
+2026-06-06 00:44:09,553 | INFO | agentic-ai | dashboard | Loaded last_workflow for 'mn': none
+2026-06-06 00:44:09,553 | INFO | agentic-ai | redis_client | No workflow_id found at user:mn:last_workflow_id
+2026-06-06 00:44:09,553 | INFO | agentic-ai | dashboard | Loaded last_workflow_id for 'mn': none
+2026-06-06 00:44:22,347 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:22,414 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:27,098 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:27,167 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:27,169 | INFO | agentic-ai | dashboard | User switched (None -> mk), reloading from Redis
+2026-06-06 00:44:27,170 | INFO | agentic-ai | redis_client | No chat history found at user:mk:chat_history (first login)
+2026-06-06 00:44:27,170 | INFO | agentic-ai | dashboard | Loaded 0 chat_history messages for 'mk' from Redis
+2026-06-06 00:44:27,170 | INFO | agentic-ai | redis_client | No workflow found at user:mk:last_workflow
+2026-06-06 00:44:27,170 | INFO | agentic-ai | dashboard | Loaded last_workflow for 'mk': none
+2026-06-06 00:44:27,170 | INFO | agentic-ai | redis_client | No workflow_id found at user:mk:last_workflow_id
+2026-06-06 00:44:27,171 | INFO | agentic-ai | dashboard | Loaded last_workflow_id for 'mk': none
+2026-06-06 00:44:32,852 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:32,955 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:41,223 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:44:41,231 | INFO | agentic-ai | dashboard | ✅ Persisting 1 messages for 'mk' to Redis
+2026-06-06 00:44:41,232 | INFO | agentic-ai | redis_client | ✅ Saved 1 messages to user:mk:chat_history (TTL=604800s)
+2026-06-06 00:44:48,660 | INFO | agentic-ai | dashboard | ✅ Persisting 2 messages for 'mk' to Redis
+2026-06-06 00:44:48,661 | INFO | agentic-ai | redis_client | ✅ Saved 2 messages to user:mk:chat_history (TTL=604800s)
+2026-06-06 00:45:03,689 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:45:03,699 | INFO | agentic-ai | dashboard | ✅ Persisting 3 messages for 'mk' to Redis
+2026-06-06 00:45:03,701 | INFO | agentic-ai | redis_client | ✅ Saved 3 messages to user:mk:chat_history (TTL=604800s)
+2026-06-06 00:45:16,666 | INFO | agentic-ai | dashboard | ✅ Persisting 4 messages for 'mk' to Redis
+2026-06-06 00:45:16,668 | INFO | agentic-ai | redis_client | ✅ Saved 4 messages to user:mk:chat_history (TTL=604800s)
+2026-06-06 00:45:24,273 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:45:24,352 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:45:42,840 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:45:42,916 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:45:42,918 | INFO | agentic-ai | dashboard | User switched (None -> mn), reloading from Redis
+2026-06-06 00:45:42,919 | INFO | agentic-ai | redis_client | ✅ Loaded 4 messages from user:mn:chat_history
+2026-06-06 00:45:42,919 | INFO | agentic-ai | dashboard | Loaded 4 chat_history messages for 'mn' from Redis
+2026-06-06 00:45:42,919 | INFO | agentic-ai | redis_client | No workflow found at user:mn:last_workflow
+2026-06-06 00:45:42,919 | INFO | agentic-ai | dashboard | Loaded last_workflow for 'mn': none
+2026-06-06 00:45:42,919 | INFO | agentic-ai | redis_client | No workflow_id found at user:mn:last_workflow_id
+2026-06-06 00:45:42,919 | INFO | agentic-ai | dashboard | Loaded last_workflow_id for 'mn': none
+2026-06-06 00:45:54,065 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:45:54,140 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:46:00,042 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:46:00,053 | INFO | agentic-ai | dashboard | ✅ Persisting 5 messages for 'mn' to Redis
+2026-06-06 00:46:00,054 | INFO | agentic-ai | redis_client | ✅ Saved 5 messages to user:mn:chat_history (TTL=604800s)
+2026-06-06 00:46:15,430 | INFO | agentic-ai | dashboard | ✅ Persisting 6 messages for 'mn' to Redis
+2026-06-06 00:46:15,434 | INFO | agentic-ai | redis_client | ✅ Saved 6 messages to user:mn:chat_history (TTL=604800s)
+2026-06-06 00:46:19,641 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:46:19,709 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:46:26,052 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:46:26,121 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:46:26,122 | INFO | agentic-ai | dashboard | User switched (None -> mk), reloading from Redis
+2026-06-06 00:46:26,124 | INFO | agentic-ai | redis_client | ✅ Loaded 4 messages from user:mk:chat_history
+2026-06-06 00:46:26,124 | INFO | agentic-ai | dashboard | Loaded 4 chat_history messages for 'mk' from Redis
+2026-06-06 00:46:26,124 | INFO | agentic-ai | redis_client | No workflow found at user:mk:last_workflow
+2026-06-06 00:46:26,124 | INFO | agentic-ai | dashboard | Loaded last_workflow for 'mk': none
+2026-06-06 00:46:26,126 | INFO | agentic-ai | redis_client | No workflow_id found at user:mk:last_workflow_id
+2026-06-06 00:46:26,126 | INFO | agentic-ai | dashboard | Loaded last_workflow_id for 'mk': none
+2026-06-06 00:46:30,574 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:46:30,654 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:46:38,783 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:46:38,798 | INFO | agentic-ai | dashboard | ✅ Persisting 5 messages for 'mk' to Redis
+2026-06-06 00:46:38,800 | INFO | agentic-ai | redis_client | ✅ Saved 5 messages to user:mk:chat_history (TTL=604800s)
+2026-06-06 00:46:51,598 | INFO | agentic-ai | dashboard | ✅ Persisting 6 messages for 'mk' to Redis
+2026-06-06 00:46:51,600 | INFO | agentic-ai | redis_client | ✅ Saved 6 messages to user:mk:chat_history (TTL=604800s)
+2026-06-06 00:52:04,368 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:52:16,966 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:52:17,027 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:52:17,029 | INFO | agentic-ai | dashboard | User switched (None -> mn), reloading from Redis
+2026-06-06 00:52:17,030 | INFO | agentic-ai | redis_client | ✅ Loaded 6 messages from user:mn:chat_history
+2026-06-06 00:52:17,030 | INFO | agentic-ai | dashboard | Loaded 6 chat_history messages for 'mn' from Redis
+2026-06-06 00:52:17,030 | INFO | agentic-ai | redis_client | No workflow found at user:mn:last_workflow
+2026-06-06 00:52:17,030 | INFO | agentic-ai | dashboard | Loaded last_workflow for 'mn': none
+2026-06-06 00:52:17,031 | INFO | agentic-ai | redis_client | No workflow_id found at user:mn:last_workflow_id
+2026-06-06 00:52:17,031 | INFO | agentic-ai | dashboard | Loaded last_workflow_id for 'mn': none
+2026-06-06 00:52:34,586 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:52:34,684 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:53:59,598 | INFO | agentic-ai | redis_client | 🔌 Connected to Redis v8.8.0 at redis://localhost:6379/0 (db=0, socket_timeout=2s, decode_responses=True)
+2026-06-06 00:53:59,639 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:54:10,750 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:54:10,808 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:54:10,811 | INFO | agentic-ai | dashboard | User switched (None -> mn), reloading from Redis
+2026-06-06 00:54:10,812 | INFO | agentic-ai | redis_client | ✅ Loaded 6 messages from user:mn:chat_history
+2026-06-06 00:54:10,812 | INFO | agentic-ai | dashboard | 📥 Loaded chat_history for user='mn': 6 messages (3 user, 3 assistant) from Redis key 'user:mn:chat_history'
+2026-06-06 00:54:10,813 | INFO | agentic-ai | redis_client | No workflow found at user:mn:last_workflow
+2026-06-06 00:54:10,813 | INFO | agentic-ai | dashboard | 📥 Loaded last_workflow for user='mn': none
+2026-06-06 00:54:10,813 | INFO | agentic-ai | redis_client | No workflow_id found at user:mn:last_workflow_id
+2026-06-06 00:54:10,814 | INFO | agentic-ai | dashboard | 📥 Loaded last_workflow_id for user='mn': none
+2026-06-06 00:54:15,522 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:54:15,629 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:56:14,542 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:56:14,620 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:56:30,685 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:56:30,755 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:56:30,757 | INFO | agentic-ai | dashboard | User switched (None -> mk), reloading from Redis
+2026-06-06 00:56:30,759 | INFO | agentic-ai | redis_client | ✅ Loaded 6 messages from user:mk:chat_history
+2026-06-06 00:56:30,759 | INFO | agentic-ai | dashboard | 📥 Loaded chat_history for user='mk': 6 messages (3 user, 3 assistant) from Redis key 'user:mk:chat_history'
+2026-06-06 00:56:30,759 | INFO | agentic-ai | redis_client | No workflow found at user:mk:last_workflow
+2026-06-06 00:56:30,759 | INFO | agentic-ai | dashboard | 📥 Loaded last_workflow for user='mk': none
+2026-06-06 00:56:30,760 | INFO | agentic-ai | redis_client | No workflow_id found at user:mk:last_workflow_id
+2026-06-06 00:56:30,760 | INFO | agentic-ai | dashboard | 📥 Loaded last_workflow_id for user='mk': none
+2026-06-06 00:56:37,542 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:56:37,625 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:57:54,002 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:57:54,014 | INFO | agentic-ai | dashboard | ✅ Persisting 7 messages for 'mk' to Redis
+2026-06-06 00:57:54,015 | INFO | agentic-ai | redis_client | ✅ Saved 7 messages to user:mk:chat_history (TTL=604800s)
+2026-06-06 00:57:54,067 | INFO | agentic-ai | dashboard | 🧠 Sending 8 messages (1 system + 7 conversation) as LLM context to model='deepseek/deepseek-r1-0528-qwen3-8b' — total 758 chars, ~189 est. tokens (4:1 ratio, system=65 chars, conversation=693 chars, last_msg_role=user)
+2026-06-06 00:58:32,306 | INFO | agentic-ai | dashboard | ✅ Persisting 8 messages for 'mk' to Redis
+2026-06-06 00:58:32,309 | INFO | agentic-ai | redis_client | ✅ Saved 8 messages to user:mk:chat_history (TTL=604800s)
+2026-06-06 00:59:08,762 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:59:08,848 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:59:16,817 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:59:16,878 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:59:16,879 | INFO | agentic-ai | dashboard | User switched (None -> mn), reloading from Redis
+2026-06-06 00:59:16,881 | INFO | agentic-ai | redis_client | ✅ Loaded 6 messages from user:mn:chat_history
+2026-06-06 00:59:16,881 | INFO | agentic-ai | dashboard | 📥 Loaded chat_history for user='mn': 6 messages (3 user, 3 assistant) from Redis key 'user:mn:chat_history'
+2026-06-06 00:59:16,881 | INFO | agentic-ai | redis_client | No workflow found at user:mn:last_workflow
+2026-06-06 00:59:16,881 | INFO | agentic-ai | dashboard | 📥 Loaded last_workflow for user='mn': none
+2026-06-06 00:59:16,883 | INFO | agentic-ai | redis_client | No workflow_id found at user:mn:last_workflow_id
+2026-06-06 00:59:16,883 | INFO | agentic-ai | dashboard | 📥 Loaded last_workflow_id for user='mn': none
+2026-06-06 00:59:22,036 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:59:22,111 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:59:45,661 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 00:59:45,675 | INFO | agentic-ai | dashboard | ✅ Persisting 7 messages for 'mn' to Redis
+2026-06-06 00:59:45,677 | INFO | agentic-ai | redis_client | ✅ Saved 7 messages to user:mn:chat_history (TTL=604800s)
+2026-06-06 00:59:45,729 | INFO | agentic-ai | dashboard | 🧠 Sending 8 messages (1 system + 7 conversation) as LLM context to model='deepseek/deepseek-r1-0528-qwen3-8b' — total 772 chars, ~193 est. tokens (4:1 ratio, system=65 chars, conversation=707 chars, last_msg_role=user)
+2026-06-06 01:00:48,268 | INFO | agentic-ai | dashboard | ✅ Persisting 8 messages for 'mn' to Redis
+2026-06-06 01:00:48,270 | INFO | agentic-ai | redis_client | ✅ Saved 8 messages to user:mn:chat_history (TTL=604800s)
+2026-06-06 01:01:05,702 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 01:01:05,776 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 01:01:17,539 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 01:01:17,616 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 01:01:17,618 | INFO | agentic-ai | dashboard | User switched (None -> mk), reloading from Redis
+2026-06-06 01:01:17,619 | INFO | agentic-ai | redis_client | ✅ Loaded 8 messages from user:mk:chat_history
+2026-06-06 01:01:17,619 | INFO | agentic-ai | dashboard | 📥 Loaded chat_history for user='mk': 8 messages (4 user, 4 assistant) from Redis key 'user:mk:chat_history'
+2026-06-06 01:01:17,620 | INFO | agentic-ai | redis_client | No workflow found at user:mk:last_workflow
+2026-06-06 01:01:17,620 | INFO | agentic-ai | dashboard | 📥 Loaded last_workflow for user='mk': none
+2026-06-06 01:01:17,621 | INFO | agentic-ai | redis_client | No workflow_id found at user:mk:last_workflow_id
+2026-06-06 01:01:17,625 | INFO | agentic-ai | dashboard | 📥 Loaded last_workflow_id for user='mk': none
+2026-06-06 01:01:24,669 | INFO | agentic-ai | app | Redis client enabled=True
+2026-06-06 01:01:24,773 | INFO | agentic-ai | app | Redis client enabled=True

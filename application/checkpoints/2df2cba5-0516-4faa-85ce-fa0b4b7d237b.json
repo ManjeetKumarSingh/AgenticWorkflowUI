@@ -1,0 +1,53 @@
+{
+  "id": "2df2cba5-0516-4faa-85ce-fa0b4b7d237b",
+  "workflow_id": "wf_1780565431.687738",
+  "node_name": "dependency",
+  "status": "completed",
+  "timestamp": "2026-06-04T15:00:31.698641",
+  "data": {
+    "workflow_id": "wf_1780565431.687738",
+    "request": "What is prod deployment.",
+    "created_at": "2026-06-04T15:00:31.687754",
+    "current_step": "planner",
+    "plan": "Step 1: Understand requested deployment scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform deployment with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for What is prod deployment.",
+    "workflow_type": "deployment",
+    "dependencies": [
+      "CI/CD pipeline",
+      "Container registry",
+      "Target environment access"
+    ],
+    "risk_present": false,
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 60,
+      "max_tokens": 450,
+      "require_llm": false
+    },
+    "planner_llm_used": false,
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-04T15:00:31.698083",
+        "status": "completed",
+        "checkpoint_id": "4750246a-a754-4de9-a650-88089459f510"
+      }
+    ],
+    "checkpoints": [],
+    "error": null,
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "dependency_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-04T15:00:31.699130"
+}

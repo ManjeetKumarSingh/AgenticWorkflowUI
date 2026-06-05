@@ -1,0 +1,56 @@
+{
+  "id": "a5ae9e57-202d-4f5a-b626-450f6aed2ed2",
+  "workflow_id": "wf_1780560166.606377",
+  "node_name": "planner",
+  "status": "completed",
+  "timestamp": "2026-06-04T13:32:46.607425",
+  "data": {
+    "workflow_id": "wf_1780560166.606377",
+    "request": "hello ",
+    "created_at": "2026-06-04T13:32:46.606389",
+    "current_step": "planner",
+    "plan": "Step 1: Understand requested execution scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform execution with monitoring and rollback readiness",
+    "dependencies": [],
+    "risk_present": false,
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 60,
+      "max_tokens": 450,
+      "require_llm": false
+    },
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [],
+    "checkpoints": [],
+    "error": null,
+    "_llm_analysis": {
+      "plan": "Step 1: Understand requested execution scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform execution with monitoring and rollback readiness",
+      "summary": "Prepared a workflow plan for hello ",
+      "workflow_type": "execution",
+      "dependencies": [],
+      "assumptions": [],
+      "risk_present": false,
+      "human_approval_required": false,
+      "governance_output": "Governance evaluated with fallback rules.",
+      "policy_checks": [
+        "Fallback policy check"
+      ],
+      "action_result": "Execution pending approval and action step.",
+      "execution_steps": [],
+      "evaluation_result": "Evaluation pending workflow completion.",
+      "success_criteria": [],
+      "next_actions": []
+    },
+    "plan_summary": "Prepared a workflow plan for hello ",
+    "workflow_type": "execution",
+    "planner_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-04T13:32:46.608329"
+}

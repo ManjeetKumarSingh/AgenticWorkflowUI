@@ -1,0 +1,56 @@
+{
+  "id": "e24b9221-9afb-4750-aac2-e5b3a1df5da2",
+  "workflow_id": "wf_1780560149.517208",
+  "node_name": "dependency",
+  "status": "completed",
+  "timestamp": "2026-06-04T13:32:29.518812",
+  "data": {
+    "workflow_id": "wf_1780560149.517208",
+    "request": "Deploy Customer Portal production  environmen",
+    "created_at": "2026-06-04T13:32:29.517217",
+    "current_step": "planner",
+    "plan": "Step 1: Understand requested deployment scope\nStep 2: Inspect dependencies and target production environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform deployment with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for Deploy Customer Portal production  environmen",
+    "workflow_type": "deployment",
+    "dependencies": [
+      "CI/CD pipeline",
+      "Container registry",
+      "Target environment access",
+      "Production cluster",
+      "Monitoring stack",
+      "Rollback artifact"
+    ],
+    "risk_present": false,
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 60,
+      "max_tokens": 450,
+      "require_llm": false
+    },
+    "planner_llm_used": false,
+    "human_approval_required": false,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-04T13:32:29.518581",
+        "status": "completed",
+        "checkpoint_id": "6fb9f7ac-fbc0-43e0-a428-cf7190078312"
+      }
+    ],
+    "checkpoints": [],
+    "error": null,
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "dependency_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-04T13:32:29.519174"
+}

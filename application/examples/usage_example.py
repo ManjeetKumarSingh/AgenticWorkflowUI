@@ -16,7 +16,7 @@ def example_basic_execution():
         "current_step": "planner",
         "plan": "",
         "dependencies": [],
-        "risks": [],
+        "risk_present": False,
         "approved": False,
         "action_result": "",
         "evaluation_result": "",
@@ -35,7 +35,7 @@ def example_basic_execution():
     result = dynamic_workflow.invoke(initial_state)
     print("Execution Result:")
     print(f"- Plan: {result.get('plan')}")
-    print(f"- Risks: {result.get('risks')}")
+    print(f"- Risk present: {result.get('risk_present')}")
     print(f"- Action Result: {result.get('action_result')}")
     print(f"- Evaluation: {result.get('evaluation_result')}")
 

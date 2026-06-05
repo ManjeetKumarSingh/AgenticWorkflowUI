@@ -1,0 +1,73 @@
+{
+  "id": "cf34a646-2ef4-4d56-9e3a-cdb709907101",
+  "workflow_id": "wf_1780560166.606377",
+  "node_name": "governance",
+  "status": "completed",
+  "timestamp": "2026-06-04T13:32:46.611933",
+  "data": {
+    "workflow_id": "wf_1780560166.606377",
+    "request": "hello ",
+    "created_at": "2026-06-04T13:32:46.606389",
+    "current_step": "risk",
+    "plan": "Step 1: Understand requested execution scope\nStep 2: Inspect dependencies and target target environment\nStep 3: Analyze operational, security, and rollback risks\nStep 4: Validate governance controls and approval requirements\nStep 5: Perform execution with monitoring and rollback readiness",
+    "plan_summary": "Prepared a workflow plan for hello ",
+    "workflow_type": "execution",
+    "dependencies": [
+      "Source repository",
+      "Runtime environment",
+      "Monitoring access"
+    ],
+    "dependency_assumptions": [
+      "Dependencies inferred from the request text"
+    ],
+    "risk_present": true,
+    "action_result": "",
+    "evaluation_result": "",
+    "llm_config": {
+      "enabled": false,
+      "base_url": "http://localhost:1234/v1/chat/completions",
+      "model": "local-model",
+      "timeout": 60,
+      "max_tokens": 450,
+      "require_llm": false
+    },
+    "planner_llm_used": false,
+    "dependency_llm_used": false,
+    "risk_llm_used": false,
+    "human_approval_required": true,
+    "approval_status": "pending",
+    "execution_history": [
+      {
+        "step": "planner",
+        "timestamp": "2026-06-04T13:32:46.608681",
+        "status": "completed",
+        "checkpoint_id": "a5ae9e57-202d-4f5a-b626-450f6aed2ed2"
+      },
+      {
+        "step": "dependency",
+        "timestamp": "2026-06-04T13:32:46.610193",
+        "status": "completed",
+        "checkpoint_id": "ab4de01a-9bb0-4f66-bdbe-e94d91238685"
+      },
+      {
+        "step": "risk",
+        "timestamp": "2026-06-04T13:32:46.611541",
+        "status": "completed",
+        "checkpoint_id": "5e5bb740-0834-4929-9457-f9a80922cec4"
+      }
+    ],
+    "checkpoints": [],
+    "error": null,
+    "governance_output": "Human approval required before execution.",
+    "policy_checks": [
+      "Risk threshold evaluated",
+      "Environment sensitivity evaluated",
+      "Rollback readiness recommended"
+    ],
+    "governance_llm_used": false
+  },
+  "human_approval_required": false,
+  "approval_status": "pending",
+  "feedback": null,
+  "updated_at": "2026-06-04T13:32:46.612669"
+}

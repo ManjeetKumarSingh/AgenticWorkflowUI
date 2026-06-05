@@ -4,9 +4,13 @@ from utils.llm_studio import ask_lm_studio
 
 
 def _fallback_evaluation(state: dict) -> dict:
-    risk_level = state.get("risk_level", "low")
+    risk_present = bool(state.get("risk_present", False))
     return {
-        "evaluation_result": f"Workflow completed with {risk_level} residual risk.",
+        "evaluation_result": (
+            "Workflow completed with risks present."
+            if risk_present
+            else "Workflow completed with no risks."
+        ),
         "success_criteria": [
             "Workflow reached final evaluation step",
             "Approval rules were applied",
@@ -36,12 +40,12 @@ def evaluator_agent(state):
             "You are a workflow evaluator. Return only JSON with keys: "
             "evaluation_result string, success_criteria array, next_actions array."
         ),
-        user_prompt=(
-            f"Request: {state.get('request', '')}\n"
-            f"Risk level: {state.get('risk_level', '')}\n"
-            f"Action result: {state.get('action_result', '')}\n"
-            "Evaluate the workflow outcome and recommend next actions."
-        ),
+            user_prompt=(
+                f"Request: {state.get('request', '')}\n"
+                f"Risk present: {state.get('risk_present', False)}\n"
+                f"Action result: {state.get('action_result', '')}\n"
+                "Evaluate the workflow outcome and recommend next actions."
+            ),
         fallback=_fallback_evaluation(state),
     )
 

@@ -2,3 +2,6 @@
 2026-06-03 22:43:28,811 | INFO | agentic-ai | Plan generated for request: Deploy this in the dev environment
 2026-06-03 22:55:39,201 | INFO | agentic-ai | Plan generated for request: Deploy this in the dev environment
 2026-06-03 22:56:11,408 | INFO | agentic-ai | Plan generated for request: x
+2026-06-05 02:26:11,778 | INFO | agentic-ai | test | logger works
+2026-06-06 00:27:34,168 | WARNING | agentic-ai | redis_client | ❌ Chat NOT saved — redis package not installed. Run: pip install redis
+2026-06-06 00:27:34,168 | WARNING | agentic-ai | redis_client | ❌ Chat NOT loaded — redis package not installed

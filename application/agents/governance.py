@@ -4,9 +4,9 @@ from utils.llm_studio import ask_lm_studio
 
 
 def _fallback_governance(state: dict) -> dict:
-    risk_score = int(state.get("risk_score") or 0)
+    risk_present = bool(state.get("risk_present", False))
     request = state.get("request", "").lower()
-    approval_required = risk_score >= 40 or "deploy" in request or "production" in request or "prod" in request
+    approval_required = risk_present or "deploy" in request or "production" in request or "prod" in request
     return {
         "human_approval_required": approval_required,
         "governance_output": (
@@ -40,9 +40,7 @@ def governance_agent(state):
             user_prompt=(
                 f"Request: {state.get('request', '')}\n"
                 f"Plan: {state.get('plan', '')}\n"
-                f"Risk level: {state.get('risk_level', '')}\n"
-                f"Risk score: {state.get('risk_score', '')}\n"
-                f"Risks: {state.get('risks', [])}\n"
+                f"Risk present: {state.get('risk_present', False)}\n"
                 "Decide whether human approval is required. Keep it brief."
             ),
             fallback=_fallback_governance(state),

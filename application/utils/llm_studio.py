@@ -156,16 +156,19 @@ def chat_lm_studio_stream(
     timeout: int = 60,
     temperature: float = 0.7,
     max_tokens: int = -1,
+    usage_info: dict = None,
 ) -> Generator[str, None, None]:
     """
     Stream a chat completion from LM Studio's OpenAI-compatible endpoint.
     Yields content tokens as they arrive via SSE.
+    When usage_info dict is passed, it will be filled with token counts.
     """
     payload = {
         "model": model,
         "messages": messages,
         "stream": True,
         "temperature": temperature,
+        "stream_options": {"include_usage": True},
     }
     if max_tokens > 0:
         payload["max_tokens"] = max_tokens
@@ -197,10 +200,16 @@ def chat_lm_studio_stream(
                             return
                         try:
                             chunk_json = json.loads(data)
-                            delta = chunk_json["choices"][0].get("delta", {})
-                            content = delta.get("content", "")
-                            if content:
-                                yield content
+                            if usage_info is not None and "usage" in chunk_json:
+                                usage_info.update(chunk_json["usage"])
+                            choices = chunk_json.get("choices", [])
+                            if choices:
+                                delta = choices[0].get("delta", {})
+                                content = delta.get("content", "")
+                                if content:
+                                    yield content
+                            elif "usage" in chunk_json:
+                                pass
                         except (json.JSONDecodeError, KeyError, IndexError):
                             pass
     except (error.URLError, TimeoutError, ConnectionError) as exc:
