@@ -1,15 +1,17 @@
 # ui/dashboard.py
 
+import json
 import time
 import base64
 from io import BytesIO
 
+import cv2
 import streamlit as st
 import streamlit.components.v1 as components
 from datetime import datetime
 from graph.workflow import graph, dynamic_workflow, WorkflowState
 from memory.checkpoint_manager import CheckpointManager
-from utils.llm_studio import LmStudioError, list_lm_studio_models, chat_lm_studio_stream
+from utils.llm_studio import LmStudioError, list_lm_studio_models, chat_lm_studio_stream, _post_json
 
 checkpoint_manager = CheckpointManager()
 
@@ -141,6 +143,8 @@ def render_dashboard(auth=None, redis_client=None):
     can_approve = auth.has_permission(user, "approve_workflow") if auth else True
     can_chat = auth.has_permission(user, "chat") if auth else True
     can_manage = auth.has_permission(user, "manage_users") if auth else True
+    can_vision = auth.has_permission(user, "vision") if auth else can_chat
+
     badge_color = {
         "admin": "#ef4444",
         "user": "#3b82f6",
@@ -158,17 +162,33 @@ def render_dashboard(auth=None, redis_client=None):
     """, unsafe_allow_html=True)
     
     tab_labels = []
-    tab_labels.append("▶️ Execute Workflow" if can_run else "▶️ Execute Workflow (🔒)")
-    tab_labels.append("📦 Checkpoints" if can_create else "📦 Checkpoints (🔒)")
-    tab_labels.append("✅ Approval Queue" if can_approve else "✅ Approval Queue (🔒)")
+    tab_labels.append("⚡ Workflow")
+    tab_labels.append("🔧 Settings")
     tab_labels.append("💬 LLM Chat" if can_chat else "💬 LLM Chat (🔒)")
 
+    vision_idx = None
+    if can_vision:
+        vision_idx = len(tab_labels)
+        tab_labels.append("🎥 Live Vision")
+
+    um_idx = None
     if can_manage:
+        um_idx = len(tab_labels)
         tab_labels.append("👥 User Management")
-        tab1, tab2, tab3, tab4, tab5 = st.tabs(tab_labels)
-    else:
-        tab1, tab2, tab3, tab4 = st.tabs(tab_labels)
-        tab5 = None
+
+    tabs = st.tabs(tab_labels)
+    tab_workflow = tabs[0]
+    tab_settings = tabs[1]
+    tab4 = tabs[2]
+    tab_vision = tabs[vision_idx] if vision_idx is not None else None
+    tab5 = tabs[um_idx] if um_idx is not None else None
+
+    with tab_workflow:
+        tab1, tab2, tab3 = st.tabs([
+            "▶️ Execute Workflow" if can_run else "▶️ Execute Workflow (🔒)",
+            "📦 Checkpoints" if can_create else "📦 Checkpoints (🔒)",
+            "✅ Approval Queue" if can_approve else "✅ Approval Queue (🔒)",
+        ])
 
     # ============ TAB 1: Execute Workflow ============
     with tab1:
@@ -545,7 +565,146 @@ def render_dashboard(auth=None, redis_client=None):
             else:
                 st.success("✅ No pending approvals")
 
-    # ============ TAB 4: LLM Chat ============
+    # ============ TAB 4: Settings (global LLM config) ============
+    with tab_settings:
+        st.markdown("""
+        <style>
+        .settings-card {
+            background: var(--background-color);
+            border: 1px solid var(--border-color, rgba(229,231,235,0.3));
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin: 0.75rem 0;
+        }
+        .settings-section-title {
+            font-size: 0.85rem; font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+        }
+        .settings-status {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.8rem; font-weight: 500;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        .settings-status.online {
+            color: #22c55e; background: #22c55e12;
+        }
+        .settings-status.offline {
+            color: #94a3b8; background: #94a3b812;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        # Init session state for settings
+        if "chat_lm_connected" not in st.session_state:
+            st.session_state.chat_lm_connected = False
+            st.session_state.chat_lm_models = []
+            st.session_state.chat_lm_model = "local-model"
+
+        lm_connected = st.session_state.chat_lm_connected
+
+        # Header
+        col_h1, col_h2 = st.columns([1, 5])
+        with col_h1:
+            st.markdown('<div style="font-size:2rem;">🔧</div>', unsafe_allow_html=True)
+        with col_h2:
+            st.markdown("### LLM Configuration")
+            st.caption("Configure the local language model used for Chat and Vision analysis")
+
+        # Connection status badge
+        if lm_connected:
+            model_short = st.session_state.chat_lm_model.split("/")[-1][:24] if st.session_state.chat_lm_model else "local-model"
+            st.markdown(f'<div class="settings-status online">● Connected · {model_short}</div>', unsafe_allow_html=True)
+        else:
+            st.markdown(f'<div class="settings-status offline">○ Disconnected</div>', unsafe_allow_html=True)
+
+        st.divider()
+
+        # LLM Server settings
+        st.markdown('<div class="settings-section-title">🔌 Server Connection</div>', unsafe_allow_html=True)
+        st.markdown('<div class="settings-card">', unsafe_allow_html=True)
+
+        chat_url = st.text_input(
+            "API Endpoint URL",
+            value=st.session_state.get("chat_llm_url", "http://localhost:1234/v1/chat/completions"),
+            key="settings_llm_url",
+            help="OpenAI-compatible chat completions endpoint (e.g. LM Studio, Ollama, vLLM)",
+        )
+        # Sync to the key used by chat/vision
+        st.session_state.chat_llm_url = chat_url
+
+        col_t1, col_t2 = st.columns(2)
+        with col_t1:
+            chat_timeout = st.number_input(
+                "Timeout (s)", min_value=5, max_value=120, value=st.session_state.get("chat_timeout", 60),
+                key="settings_timeout",
+            )
+            st.session_state.chat_timeout = chat_timeout
+        with col_t2:
+            pass
+
+        if not lm_connected:
+            if st.button("🔌 Connect to LLM", use_container_width=True, type="primary", key="settings_connect_btn"):
+                with st.spinner("Connecting..."):
+                    try:
+                        models = list_lm_studio_models(chat_url, timeout=5)
+                        st.session_state.chat_lm_models = models
+                        st.session_state.chat_lm_model = models[0] if models else "local-model"
+                        st.session_state.chat_lm_connected = True
+                        st.rerun()
+                    except LmStudioError as exc:
+                        st.session_state.chat_lm_connected = False
+                        st.error(str(exc))
+        else:
+            if st.button("⏻ Disconnect", use_container_width=True, key="settings_disconnect_btn"):
+                st.session_state.chat_lm_connected = False
+                st.session_state.chat_lm_models = []
+                st.session_state.chat_lm_model = "local-model"
+                st.rerun()
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Model selection (only when connected)
+        if lm_connected:
+            st.markdown('<div class="settings-section-title">🧠 Model Selection</div>', unsafe_allow_html=True)
+            st.markdown('<div class="settings-card">', unsafe_allow_html=True)
+
+            current_idx = 0
+            models_list = st.session_state.chat_lm_models
+            if st.session_state.chat_lm_model in models_list:
+                current_idx = models_list.index(st.session_state.chat_lm_model)
+            selected = st.selectbox(
+                "Active Model", models_list, index=current_idx, key="settings_model_select",
+                help="Choose which loaded model to use for Chat and Vision",
+            )
+            st.session_state.chat_lm_model = selected
+
+            st.caption("Models listed are those currently loaded in your LLM server. Switch anytime — active for both Chat and Vision tabs.")
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        # System Prompt
+        st.markdown('<div class="settings-section-title">📝 System Prompt</div>', unsafe_allow_html=True)
+        st.markdown('<div class="settings-card">', unsafe_allow_html=True)
+
+        sys_height = st.number_input(
+            "Editor height (px)", min_value=60, max_value=400, value=st.session_state.get("chat_sys_height", 100),
+            key="settings_sys_height",
+        )
+        st.session_state.chat_sys_height = sys_height
+
+        st.text_area(
+            "System Prompt",
+            value=st.session_state.get("chat_system_prompt", "You are a helpful AI assistant. Keep responses concise and clear."),
+            key="settings_system_prompt_ta",
+            height=sys_height,
+            help="This system prompt is used for Chat. Vision analysis uses its own vision-specific prompt.",
+        )
+        st.session_state.chat_system_prompt = st.session_state.settings_system_prompt_ta
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # ============ TAB 5: LLM Chat ============
     with tab4:
         if not can_chat:
             st.warning("🔒 You do not have permission to use the chat. Contact an admin.")
@@ -896,60 +1055,6 @@ def render_dashboard(auth=None, redis_client=None):
         if "chat_attachments" not in st.session_state:
             st.session_state.chat_attachments = []
 
-        with st.expander("⚙️ Settings", expanded=st.session_state.chat_settings_open):
-            st.caption("Configure your local LLM connection")
-            chat_url = st.text_input(
-                "API URL",
-                value="http://localhost:1234/v1/chat/completions",
-                key="chat_llm_url",
-                help="LM Studio OpenAI-compatible chat completions endpoint",
-            )
-            chat_col1, chat_col2 = st.columns(2)
-            with chat_col1:
-                chat_timeout = st.number_input(
-                    "Timeout (s)", min_value=5, max_value=120, value=60, key="chat_timeout"
-                )
-            with chat_col2:
-                chat_sys_height = st.number_input(
-                    "System prompt height (px)", min_value=60, max_value=300, value=80, key="chat_sys_height"
-                )
-            chat_system = st.text_area(
-                "System Prompt",
-                value="You are a helpful AI assistant. Keep responses concise and clear.",
-                key="chat_system_prompt",
-                height=chat_sys_height,
-            )
-
-            st.divider()
-            ccol1, ccol2 = st.columns(2)
-            with ccol1:
-                if st.button("🔌 Connect", use_container_width=True, key="chat_connect_btn"):
-                    with st.spinner("Connecting..."):
-                        try:
-                            models = list_lm_studio_models(chat_url, timeout=5)
-                            st.session_state.chat_lm_models = models
-                            st.session_state.chat_lm_model = models[0] if models else "local-model"
-                            st.session_state.chat_lm_connected = True
-                            st.session_state.chat_settings_open = False
-                            st.rerun()
-                        except LmStudioError as exc:
-                            st.session_state.chat_lm_connected = False
-                            st.error(str(exc))
-
-            with ccol2:
-                if st.button("🗑️ Clear", use_container_width=True, key="clear_chat_btn"):
-                    st.session_state.chat_history = []
-                    if redis_client and username:
-                        redis_client.save_chat_history(username, [])
-                    st.rerun()
-
-            if st.session_state.chat_lm_connected:
-                current_idx = 0
-                if st.session_state.chat_lm_model in st.session_state.chat_lm_models:
-                    current_idx = st.session_state.chat_lm_models.index(st.session_state.chat_lm_model)
-                st.selectbox("Model", st.session_state.chat_lm_models, index=current_idx, key="chat_model_select", label_visibility="collapsed")
-                st.session_state.chat_lm_model = st.session_state.chat_model_select
-
         chat_connected = st.session_state.chat_lm_connected
 
         chat_model_display = st.session_state.chat_lm_model.split("/")[-1][:24] if chat_connected else "offline"
@@ -1160,7 +1265,7 @@ def render_dashboard(auth=None, redis_client=None):
                     full_response = ""
 
                     messages = [
-                        {"role": "system", "content": chat_system},
+                        {"role": "system", "content": st.session_state.get("chat_system_prompt", "You are a helpful AI assistant. Keep responses concise and clear.")},
                     ]
                     for m in st.session_state.chat_history:
                         if m["role"] == "user":
@@ -1190,8 +1295,8 @@ def render_dashboard(auth=None, redis_client=None):
                         st.session_state.chat_lm_model,
                         total_chars,
                         total_chars // 4,
-                        len(chat_system),
-                        total_chars - len(chat_system),
+                        len(st.session_state.get("chat_system_prompt", "You are a helpful AI assistant. Keep responses concise and clear.")),
+                        total_chars - len(st.session_state.get("chat_system_prompt", "You are a helpful AI assistant. Keep responses concise and clear.")),
                         st.session_state.chat_history[-1]["role"] if st.session_state.chat_history else "none",
                     )
 
@@ -1332,6 +1437,326 @@ def render_dashboard(auth=None, redis_client=None):
         )
 
         st.markdown('</div>', unsafe_allow_html=True)
+
+    # ============ TAB 4b: Live Vision ============
+    if tab_vision is not None:
+        with tab_vision:
+            if not can_vision:
+                st.warning("🔒 You do not have permission to use Live Vision. Contact an admin.")
+                st.stop()
+
+            lm_ok = st.session_state.get("chat_lm_connected", False)
+            if not lm_ok:
+                st.warning("⚠️ LLM not connected. Configure it in the **🔧 Settings** tab first, then return here.")
+
+            # Camera source selection
+            cam_source = st.radio(
+                "Camera Source",
+                ["Local Webcam", "Mobile Camera (WiFi)"],
+                horizontal=True,
+                index=0,
+                key="vision_cam_source",
+            )
+
+            st.markdown("""
+            <style>
+            .vision-card {
+                background: var(--background-color);
+                border: 1px solid var(--border-color, rgba(229,231,235,0.3));
+                border-radius: 1rem;
+                padding: 1.25rem;
+                margin: 0.75rem 0;
+            }
+            .vision-badge {
+                display: inline-block;
+                font-size: 0.6rem; font-weight: 600;
+                padding: 0.15rem 0.5rem;
+                border-radius: 6px;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+            }
+            .vision-badge-obj { color: #6366f1; background: #6366f115; }
+            .vision-badge-act { color: #f59e0b; background: #f59e0b15; }
+            .vision-badge-ppl { color: #22c55e; background: #22c55e15; }
+            .vision-result h3 { font-size: 0.95rem; margin: 1rem 0 0.35rem; color: var(--text-color); }
+            .vision-result ul { margin: 0.25rem 0 0.5rem; padding-left: 1.25rem; }
+            .vision-result li { font-size: 0.85rem; margin-bottom: 0.2rem; line-height: 1.5; }
+            .vision-frame {
+                border: 1px solid var(--border-color, rgba(229,231,235,0.3));
+                border-radius: 0.75rem;
+                overflow: hidden;
+            }
+            </style>
+            """, unsafe_allow_html=True)
+
+            # Determine image source
+            img_file = None
+            ip_cam_frame = None
+
+            if cam_source == "Mobile Camera (WiFi)":
+                with st.expander("📱 Setup Guide — Android phone as network camera", expanded=False):
+                    st.markdown("""
+                    **Step-by-step:**
+                    1. Install **IP Webcam** from Google Play Store on your Android phone
+                    2. Connect your phone to the **same WiFi network** as this laptop
+                    3. Open IP Webcam app → tap **Start Server** (bottom of screen)
+                    4. The app shows a URL like `http://192.168.1.100:8080/video` — **copy it**
+                    5. Paste the URL below and click **Connect Camera**
+                    """)
+                    st.info("Default URL format: `http://<phone-ip>:8080/video` (or try `http://<phone-ip>:8080/shot.jpg`)")
+                    st.markdown("**iPhone users:** Try **iVCam** or **EpocCam** apps (check app instructions for the stream URL)")
+
+                if "vision_ip_cam_url" not in st.session_state:
+                    st.session_state.vision_ip_cam_url = "http://192.168.1.100:8080/video"
+
+                col_url, col_btn = st.columns([3, 1])
+                with col_url:
+                    ip_url = st.text_input(
+                        "IP Camera Stream URL",
+                        value=st.session_state.vision_ip_cam_url,
+                        key="vision_ip_url_input",
+                        help="The video stream URL shown in the IP Webcam app. Usually http://192.168.1.xxx:8080/video",
+                    )
+                    st.session_state.vision_ip_cam_url = ip_url
+                with col_btn:
+                    st.markdown("<div style='height:1.5rem'></div>", unsafe_allow_html=True)
+                    if st.button("📡 Connect Camera", use_container_width=True, key="vision_ip_connect"):
+                        st.session_state.vision_ip_connected = False
+                        st.session_state.vision_ip_error = None
+                        # Try multiple URL formats
+                        urls_to_try = [ip_url]
+                        if ip_url.endswith("/video"):
+                            urls_to_try.append(ip_url.replace("/video", "/shot.jpg"))
+                        elif ip_url.endswith("/shot.jpg"):
+                            urls_to_try.append(ip_url.replace("/shot.jpg", "/video"))
+                        if not ip_url.endswith("/"):
+                            urls_to_try.append(ip_url + "/")
+                        connected = False
+                        last_error = None
+                        for test_url in urls_to_try:
+                            try:
+                                cap = cv2.VideoCapture(test_url)
+                                cap.set(cv2.CAP_PROP_OPEN_TIMEOUT_MSEC, 3000)
+                                cap.set(cv2.CAP_PROP_READ_TIMEOUT_MSEC, 3000)
+                                if cap.isOpened():
+                                    ret, test_frame = cap.read()
+                                    cap.release()
+                                    if ret and test_frame is not None and test_frame.size > 0:
+                                        st.session_state.vision_ip_connected = True
+                                        st.session_state.vision_ip_frame = test_frame
+                                        st.session_state.vision_ip_cam_url = test_url
+                                        connected = True
+                                        break
+                                    else:
+                                        last_error = "Connected but couldn't read a valid frame"
+                                else:
+                                    last_error = "Could not open video stream"
+                            except Exception as exc:
+                                last_error = f"{type(exc).__name__}: {exc}"
+                        if connected:
+                            st.rerun()
+                        else:
+                            st.session_state.vision_ip_error = last_error or "All connection attempts failed"
+                            st.error(f"❌ Connection failed: {st.session_state.vision_ip_error}")
+
+                ip_connected = st.session_state.get("vision_ip_connected", False)
+                ip_error = st.session_state.get("vision_ip_error")
+
+                if ip_error and not ip_connected:
+                    st.warning(f"Last error: {ip_error}")
+
+                if ip_connected:
+                    st.success("✅ Mobile camera connected")
+                    # Grab a fresh frame
+                    try:
+                        cap = cv2.VideoCapture(st.session_state.vision_ip_cam_url)
+                        cap.set(cv2.CAP_PROP_OPEN_TIMEOUT_MSEC, 3000)
+                        cap.set(cv2.CAP_PROP_READ_TIMEOUT_MSEC, 3000)
+                        ret, frame = cap.read()
+                        cap.release()
+                        if ret and frame is not None and frame.size > 0:
+                            ip_cam_frame = frame
+                            st.image(frame, channels="BGR", use_container_width=True, caption="Live Feed")
+                        else:
+                            # Try shot.jpg endpoint
+                            shot_url = st.session_state.vision_ip_cam_url
+                            if "/video" in shot_url:
+                                shot_url = shot_url.replace("/video", "/shot.jpg")
+                            cap = cv2.VideoCapture(shot_url)
+                            cap.set(cv2.CAP_PROP_OPEN_TIMEOUT_MSEC, 3000)
+                            ret, frame = cap.read()
+                            cap.release()
+                            if ret and frame is not None and frame.size > 0:
+                                ip_cam_frame = frame
+                                st.image(frame, channels="BGR", use_container_width=True, caption="Live Feed")
+                            else:
+                                st.warning("Could not read frame — camera might be disconnected. Reconnect.")
+                                st.session_state.vision_ip_connected = False
+                    except Exception as exc:
+                        st.warning(f"Frame read failed: {exc}. Reconnect.")
+                        st.session_state.vision_ip_connected = False
+
+                    if ip_cam_frame is not None:
+                        col_cap, col_opts = st.columns([1, 1])
+                        with col_cap:
+                            captured_file = st.button("📸 Capture Frame", use_container_width=True, type="primary",
+                                disabled=not lm_ok, key="vision_ip_capture")
+                        if captured_file and ip_cam_frame is not None:
+                            ret, buf = cv2.imencode(".jpg", ip_cam_frame)
+                            if ret:
+                                img_file = BytesIO(buf.tobytes())
+                        with col_opts:
+                            st.markdown('<div class="vision-card">', unsafe_allow_html=True)
+                            st.markdown("**Analysis Modules**", help="Choose which detections to run")
+                            detect_objects = st.checkbox("Object Detection", value=True, disabled=not lm_ok)
+                            detect_activities = st.checkbox("Activity Recognition", value=True, disabled=not lm_ok)
+                            detect_people = st.checkbox("Person Positioning", value=True, disabled=not lm_ok)
+                            st.markdown("</div>", unsafe_allow_html=True)
+
+                            st.markdown('<div class="vision-card">', unsafe_allow_html=True)
+                            st.markdown("**Auto Mode**")
+                            stream_mode = st.toggle("🔄 Stream Mode (auto every 5s)", value=False,
+                                disabled=not lm_ok)
+                            st.markdown("</div>", unsafe_allow_html=True)
+
+                            analyze_btn = captured_file
+                    else:
+                        detect_objects = detect_activities = detect_people = False
+                        analyze_btn = False
+                        stream_mode = False
+                else:
+                    col_opts = st.empty()
+                    detect_objects = detect_activities = detect_people = False
+                    analyze_btn = False
+                    stream_mode = False
+            else:
+                col_cam, col_opts = st.columns([2, 1])
+                with col_cam:
+                    img_file = st.camera_input("📷 Live Camera Feed", key="vision_cam", disabled=not lm_ok)
+                with col_opts:
+                    st.markdown('<div class="vision-card">', unsafe_allow_html=True)
+                    st.markdown("**Analysis Modules**", help="Choose which detections to run")
+                    detect_objects = st.checkbox("Object Detection", value=True, disabled=not lm_ok)
+                    detect_activities = st.checkbox("Activity Recognition", value=True, disabled=not lm_ok)
+                    detect_people = st.checkbox("Person Positioning", value=True, disabled=not lm_ok)
+                    st.markdown("</div>", unsafe_allow_html=True)
+
+                    st.markdown('<div class="vision-card">', unsafe_allow_html=True)
+                    st.markdown("**Controls**")
+                    analyze_btn = st.button("🔍 Capture & Analyze", use_container_width=True, type="primary",
+                        disabled=not lm_ok or img_file is None or not (detect_objects or detect_activities or detect_people))
+
+                    stream_mode = st.toggle("🔄 Stream Mode (auto every 5s)", value=False,
+                        disabled=not lm_ok or img_file is None)
+                    st.markdown("</div>", unsafe_allow_html=True)
+
+            # History accordion
+            history_exp = st.expander("📜 Analysis History", expanded=False)
+            hist_placeholder = history_exp.empty()
+
+            # Results area
+            result_placeholder = st.empty()
+
+            if analyze_btn and img_file is not None and (detect_objects or detect_activities or detect_people):
+                with st.spinner("🧠 Analyzing frame with AI vision..."):
+                    bytes_data = img_file.getvalue()
+                    b64 = base64.b64encode(bytes_data).decode()
+
+                    active = []
+                    prompt_parts = []
+                    if detect_objects:
+                        active.append("Object Detection")
+                        prompt_parts.append("""## Objects Detected
+        List every visible object with:
+        - Name & count
+        - Approximate position (e.g. "left foreground", "center background")
+        """)
+                    if detect_activities:
+                        active.append("Activity Recognition")
+                        prompt_parts.append("""## Activities & Actions
+        Describe:
+        - What is happening in the scene
+        - Any actions, interactions, or events
+        - Overall scene context
+        """)
+                    if detect_people:
+                        active.append("Person Positioning")
+                        prompt_parts.append("""## People & Poses
+        For each person:
+        - Number of people
+        - Position in frame
+        - Pose (standing/sitting/walking/etc)
+        - Direction facing
+        - Spatial relationships between people
+        """)
+
+                    prompt = "You are a real-time computer vision AI. Analyze the provided image and create a structured detection report.\n\n" + "\n".join(prompt_parts)
+                    prompt += "\n\nUse clear section headers with ### and bullet points. Be specific."
+
+                    messages = [
+                        {"role": "system", "content": "You are a computer vision AI assistant. Always use the exact section headers requested. Respond with detailed bullet points under each section."},
+                        {"role": "user", "content": [
+                            {"type": "text", "text": prompt},
+                            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}}
+                        ]}
+                    ]
+
+                    url = st.session_state.get("chat_llm_url", "http://localhost:1234/v1/chat/completions")
+                    model = st.session_state.get("chat_lm_model", "local-model")
+
+                    payload = {
+                        "model": model,
+                        "messages": messages,
+                        "max_tokens": 1536,
+                        "temperature": 0.1,
+                    }
+
+                    try:
+                        raw = _post_json(url, payload, 60)
+                        resp = json.loads(raw)
+                        analysis = resp["choices"][0]["message"]["content"]
+
+                        badges = " ".join(
+                            f'<span class="vision-badge vision-badge-{"obj" if "Object" in a else "act" if "Activity" in a else "ppl"}">{a}</span>'
+                            for a in active
+                        )
+
+                        with result_placeholder.container():
+                            st.markdown("---")
+                            st.markdown(f"### 📋 Vision Report  {badges}", unsafe_allow_html=True)
+                            st.markdown(f'<div class="vision-result">{analysis}</div>', unsafe_allow_html=True)
+
+                        if "vision_history" not in st.session_state:
+                            st.session_state.vision_history = []
+                        st.session_state.vision_history.insert(0, {
+                            "time": datetime.now().strftime("%H:%M:%S"),
+                            "analysis": analysis,
+                            "types": active,
+                        })
+                    except Exception as e:
+                        st.error(f"Vision analysis failed: {e}")
+
+            # Render history
+            if "vision_history" in st.session_state and st.session_state.vision_history:
+                with hist_placeholder.container():
+                    for entry in st.session_state.vision_history[:20]:
+                        blist = " ".join(
+                            f'<span class="vision-badge vision-badge-{"obj" if "Object" in t else "act" if "Activity" in t else "ppl"}">{t}</span>'
+                            for t in entry["types"]
+                        )
+                        preview = entry["analysis"][:180] + "..." if len(entry["analysis"]) > 180 else entry["analysis"]
+                        st.markdown(f"""
+                        <div style="padding:0.5rem 0;border-bottom:1px solid var(--border-color,rgba(229,231,235,0.15));">
+                            <div style="font-size:0.7rem;color:#94a3b8;">{entry['time']}  {blist}</div>
+                            <div style="font-size:0.82rem;margin-top:0.2rem;">{preview}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+            # Stream mode
+            if stream_mode:
+                st.toast("📸 Stream Mode active — capturing next frame...", icon="🔄")
+                time.sleep(5)
+                st.rerun()
 
     # ============ TAB 5: User Management (admin only) ============
     if tab5 is not None:

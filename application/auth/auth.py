@@ -10,8 +10,8 @@ AUTH_DIR = Path(__file__).parent
 USERS_FILE = AUTH_DIR / "users.json"
 
 ROLE_PERMISSIONS = {
-    "admin": ["run_workflow", "create_workflow", "approve_workflow", "chat", "manage_users"],
-    "user": ["run_workflow", "create_workflow", "chat"],
+    "admin": ["run_workflow", "create_workflow", "approve_workflow", "chat", "vision", "manage_users"],
+    "user": ["run_workflow", "create_workflow", "chat", "vision"],
     "viewer": ["chat"],
 }
 

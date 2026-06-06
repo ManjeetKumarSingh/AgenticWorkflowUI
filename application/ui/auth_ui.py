@@ -155,6 +155,10 @@ def render_logout_button():
 
     st.markdown(f"""
     <style>
+    .sidebar-spacer {{
+        flex: 1;
+        min-height: 2rem;
+    }}
     .user-card {{
         background: var(--background-color);
         border: 1px solid var(--border-color, rgba(229,231,235,0.3));
@@ -219,7 +223,7 @@ def render_logout_button():
 
         st.markdown("---")
 
-        st.markdown(f'<div style="min-height:calc(100vh - 260px);"></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="sidebar-spacer"></div>', unsafe_allow_html=True)
 
         st.markdown(f'<div class="sidebar-version">FlowForge v{APP_VERSION}</div>', unsafe_allow_html=True)
 

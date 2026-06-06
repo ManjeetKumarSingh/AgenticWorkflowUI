@@ -19,15 +19,58 @@ if os.path.isfile(_env_path):
 st.set_page_config(page_title="FlowForge", page_icon="⚡", layout="wide")
 st.markdown("""
 <style>
+:root {
+  --background-color: #ffffff;
+  --border-color: #e5e7eb;
+  --text-color: #111827;
+}
 #root > div:first-child { padding: 0 !important; }
 .stApp > header { display: none !important; }
-.stApp { margin-top: -3.75rem; }
+.stApp { margin-top: 0 !important; }
 div[data-testid="stDecoration"] { display: none !important; }
 div[data-testid="stToolbar"] { display: none !important; }
 div[data-testid="stToolbarActions"] { display: none !important; }
 #MainMenu { display: none !important; }
 .stDeployButton { display: none !important; }
 footer { display: none !important; }
+
+/* ===== Sidebar: flex column so spacer pushes logout to bottom ===== */
+section[data-testid="stSidebar"] div[data-testid="stSidebarContent"] {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+}
+
+/* ===== Tab bar: sticky top ===== */
+div[data-testid="stTabs"] {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  background: var(--background-color, #ffffff) !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0 !important;
+  border-bottom: 1px solid var(--border-color, #e5e7eb) !important;
+}
+div[data-testid="stTabs"] button {
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  border-bottom: 2px solid transparent !important;
+}
+div[data-testid="stTabs"] button[aria-selected="true"] {
+  color: #6366f1 !important;
+  border-bottom-color: #6366f1 !important;
+}
+
+/* ===== Messages area: fixed width/height scrollable box ===== */
+.chat-marker + .element-container > div[data-testid="stVerticalBlock"] {
+  max-width: 720px !important;
+  margin: 0 auto !important;
+  height: calc(100vh - 280px) !important;
+  overflow-y: auto !important;
+  border: 1px solid var(--border-color, #e5e7eb) !important;
+  border-radius: 0.75rem !important;
+  padding: 1rem !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
